@@ -1,0 +1,20 @@
+{
+  "name": "cube",
+  "version": "1.0.0",
+  "description": "Création en cours",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Circus-Pygargus/Cube"
+  },
+  "keywords": [],
+  "author": "Circus_Pygargus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Circus-Pygargus/Cube/issues"
+  },
+  "homepage": "https://github.com/Circus-Pygargus/Cube#readme"
+}

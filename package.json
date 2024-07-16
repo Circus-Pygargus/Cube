@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Circus-Pygargus/Cube/issues"
   },
-  "homepage": "https://github.com/Circus-Pygargus/Cube#readme"
+  "homepage": "https://github.com/Circus-Pygargus/Cube#readme",
+  "devDependencies": {
+    "typescript": "^5.5.3"
+  }
 }

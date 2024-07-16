@@ -4,6 +4,8 @@
   "description": "Création en cours",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon --watch src --exec ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +20,8 @@
   },
   "homepage": "https://github.com/Circus-Pygargus/Cube#readme",
   "devDependencies": {
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
     "typescript": "^5.5.3"
   }
 }

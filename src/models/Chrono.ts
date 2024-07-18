@@ -6,7 +6,6 @@ interface IChrono extends Document {
     cubeType: CubeType;
     scrambleMoves: string[];
     durationInSeconds: number;
-    date: Date;
     comment: string;
 }
 

@@ -11,6 +11,14 @@ const hostname: string = '127.0.0.1';
 
 const port = 3000;
 
+const shutDown = async (server: any, signal: string) => {
+    console.log('Signal SIGTERM reçu : fermeture du serveur');
+    server.close(async () => {
+        await dbManager.disconnect();
+        process.exit(0); // Exit process with success
+    });
+};
+
 (async () => {
     await dbManager.connect();
 
@@ -25,31 +33,17 @@ const port = 3000;
     });
 
     // Gestion des signaux de terminaison
-    process.on('SIGINT', async () => {
-        console.log('Signal SIGINT reçu : fermeture du serveur');
-        server.close(async () => {
-            await dbManager.disconnect();
-            process.exit(0); // Exit process with success
-        });
-    });
+    process.on('SIGINT', async () => await shutDown(server, 'SIGINT'));
+    process.on('SIGTERM', async () => await shutDown(server, 'SIGTERM'));
 
-    process.on('SIGTERM', async () => {
-        console.log('Signal SIGTERM reçu : fermeture du serveur');
-        server.close(async () => {
-            await dbManager.disconnect();
-            process.exit(0); // Exit process with success
-        });
-    });
-
+    // gestion des erreurs critiques
     process.on('uncaughtException', async (err) => {
         console.error('Exception non capturée :', err);
-        await dbManager.disconnect(); // Déconnexion de la base de données
-        process.exit(1); // Exit process with failure
+        await shutDown(server, 'uncaughtException');
     });
 
     process.on('unhandledRejection', async (reason, promise) => {
         console.error('Rejet non géré :', reason);
-        await dbManager.disconnect(); // Déconnexion de la base de données
-        process.exit(1); // Exit process with failure
+        await shutDown(server, 'unhandledRejection');
     });
 })();

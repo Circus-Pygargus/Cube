@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 import bcrypt from 'bcrypt';
 import User from "../../src/models/User";
 
+afterEach(async () => {
+    // Supprimer tous les utilisateurs après chaque test
+    await User.deleteMany({});
+});
+
 describe('User model', () => {
     it('should create a user with valid data', async () => {
         const user = new User({

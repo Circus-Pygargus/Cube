@@ -1,5 +1,9 @@
 import express, { Express, Request, Response } from 'express';
+import dotenv from 'dotenv';
 import dbConnect from './db/mongoose';
+
+// Charger les variables d'environnement
+dotenv.config();
 
 const app: Express = express();
 

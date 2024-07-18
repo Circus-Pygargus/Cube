@@ -2,20 +2,6 @@ import mongoose from "mongoose";
 import bcrypt from 'bcrypt';
 import User from "../../src/models/User";
 
-beforeAll(async () => {
-    const MONGODB_URI = 'mongodb://127.0.0.1:27017/cube_test';
-    try {
-        await mongoose.connect(MONGODB_URI);
-        console.log('connexion réussie à la base de données de test');
-    } catch (err: any) {
-        console.log('La connextion à la base de données de test n\'a pas pu être effectuée. Les tests ne seront pas effectués.');
-    }
-}, 10000);
-
-afterAll(async () => {
-    await mongoose.connection.close();
-}, 10000);
-
 describe('User model', () => {
     it('should create a user with valid data', async () => {
         const user = new User({

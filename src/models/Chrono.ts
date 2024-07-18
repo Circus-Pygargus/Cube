@@ -14,20 +14,24 @@ const ChronoSchema: Schema<IChrono> = new Schema<IChrono>({
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        required: true,
+        index: true
     },
     cubeType: {
         type: String,
         enum: Object.values(CubeType), // the only strings accepted
-        required: true
+        required: true,
+        index: true
     },
     scrambleMoves: {
         type: [String],
         required: true,
+        index: true
     },
     durationInSeconds: {
         type: Number,
-        required: true
+        required: true,
+        index: true
     },
     comment: {
         type: String

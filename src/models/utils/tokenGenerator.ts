@@ -1,13 +1,19 @@
-const tokenGenerator = (): string => {
-    const characters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    let token: string = '';
-
-    for (let i = 0; i < 16; i++) {
-        token += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-
-    return token;
+type TokenGenerator = {
+    generate: () => string;
 };
+
+const tokenGenerator: TokenGenerator = {
+    generate: (): string => {
+        const characters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+        let token: string = '';
+
+        for (let i = 0; i < 16; i++) {
+            token += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+
+        return token;
+    }
+}
 
 export default tokenGenerator;

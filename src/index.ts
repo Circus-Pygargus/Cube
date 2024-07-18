@@ -40,4 +40,16 @@ const port = 3000;
             process.exit(0); // Exit process with success
         });
     });
+
+    process.on('uncaughtException', async (err) => {
+        console.error('Exception non capturée :', err);
+        await dbManager.disconnect(); // Déconnexion de la base de données
+        process.exit(1); // Exit process with failure
+    });
+
+    process.on('unhandledRejection', async (reason, promise) => {
+        console.error('Rejet non géré :', reason);
+        await dbManager.disconnect(); // Déconnexion de la base de données
+        process.exit(1); // Exit process with failure
+    });
 })();

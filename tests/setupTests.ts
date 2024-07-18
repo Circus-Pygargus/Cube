@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
-import dbConnect from "../src/db/mongoose";
+import dbManager from "../src/db/databaseManager";
 
 dotenv.config()
 
 beforeAll(async () => {
-    await dbConnect();
+    await dbManager.connect();
 }, 10000);
 
 afterAll(async () => {
-    await mongoose.connection.close();
+    await dbManager.disconnect();
 }, 10000);

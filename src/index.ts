@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import dbConnect from './db/mongoose';
+import dbManager from './db/databaseManager';
 
 // Charger les variables d'environnement
 dotenv.config();
@@ -11,14 +11,17 @@ const hostname: string = '127.0.0.1';
 
 const port = 3000;
 
-dbConnect();
+(async () => {
+    await dbManager.connect();
 
-// homepage
-app.get('/', (req: Request, res: Response) => {
-    res.send('<h1>Cube !</h1>');
-});
+    // homepage
+    app.get('/', (req: Request, res: Response) => {
+        res.send('<h1>Cube !</h1>');
+    });
 
-// launch server
-app.listen(port, hostname, () => {
-    console.log(`Serveur is up at ${hostname}:${port}`);
-});
+    // launch server
+    app.listen(port, hostname, () => {
+        console.log(`Serveur is up at ${hostname}:${port}`);
+    });
+
+})();

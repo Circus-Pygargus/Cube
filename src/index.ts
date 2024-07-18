@@ -20,8 +20,24 @@ const port = 3000;
     });
 
     // launch server
-    app.listen(port, hostname, () => {
+    const server = app.listen(port, hostname, () => {
         console.log(`Serveur is up at ${hostname}:${port}`);
     });
 
+    // Gestion des signaux de terminaison
+    process.on('SIGINT', async () => {
+        console.log('Signal SIGINT reçu : fermeture du serveur');
+        server.close(async () => {
+            await dbManager.disconnect();
+            process.exit(0); // Exit process with success
+        });
+    });
+
+    process.on('SIGTERM', async () => {
+        console.log('Signal SIGTERM reçu : fermeture du serveur');
+        server.close(async () => {
+            await dbManager.disconnect();
+            process.exit(0); // Exit process with success
+        });
+    });
 })();

@@ -16,6 +16,8 @@ Initialisation du projet :
 
 Cloner le repo.
 
+Renommer le fichier .env.sample en .env et modifier les valeurs présentes par les vôtres.
+
 Lancer cette commande :
 ```bash
 npm install

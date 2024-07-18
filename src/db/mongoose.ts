@@ -1,7 +1,12 @@
 import mongoose from "mongoose";
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const dbName = process.env.DB_NAME;
 
 // here cube is the name of the database
-const MONGODB_URI: string = 'mongodb://127.0.0.1:27017/cube';
+const MONGODB_URI: string = `mongodb://127.0.0.1:27017/${dbName}`;
 
 const dbConnect = async (): Promise<void> => {
     try {

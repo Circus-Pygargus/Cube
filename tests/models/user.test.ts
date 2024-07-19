@@ -1,9 +1,17 @@
-import mongoose from "mongoose";
 import bcrypt from 'bcrypt';
 import User from "../../src/models/User";
+import dbManager from '../../src/db/databaseManager';
 
+beforeAll(async () => {
+    await dbManager.connect();
+});
+
+afterAll(async () => {
+    await dbManager.disconnect();
+});
+
+// Supprimer tous les utilisateurs après chaque test
 afterEach(async () => {
-    // Supprimer tous les utilisateurs après chaque test
     await User.deleteMany({});
 });
 

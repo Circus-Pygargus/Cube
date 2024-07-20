@@ -2,6 +2,7 @@ import dbManager from "../../src/db/databaseManager";
 import Chrono from "../../src/models/Chrono";
 import User from "../../src/models/User";
 import tokenGenerator from "../../src/models/utils/tokenGenerator";
+import { MongoServerError } from 'mongodb';
 
 beforeAll( async () => {
     await dbManager.connect();
@@ -67,5 +68,29 @@ describe('Chrono model', () => {
         expect(savedChrono.updatedAt).toBeDefined();
         expect(savedChrono.updatedAt).toBeInstanceOf(Date);
         expect(savedChrono.updatedAt?.getTime()).toBeGreaterThan(savedChrono.createdAt?.getTime()!);
+    });
+
+    describe('tests chrono\'s user property', () => {
+        it('should not create a chrono if user is not defined.', async () => {
+            const chrono = new Chrono({
+                cubeType: '3x3',
+                token: tokenGenerator.generate(),
+                scrambleMoves: ['B2','F\'','R','L\'','D','B2','F2','D','B\'','L\'','B','F\'','U\'','B','L','R\'','F2','U2','F2','L\'','B2','R\'','L2','D2','R2'],
+                durationInSeconds: null,
+                comment: 'just a comment.',
+            });
+
+            let err: MongoServerError | undefined;
+            try {
+                await chrono.save();
+            } catch (error) {
+                err = error as MongoServerError;
+            }
+
+            expect(err).toBeDefined();
+            expect(err!.name).toBe('ValidationError');
+            expect(err!.errors.user).toBeDefined();
+            expect(err!.errors.user.message).toBe('Path `user` is required.');
+        });
     });
 });

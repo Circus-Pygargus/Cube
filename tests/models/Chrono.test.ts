@@ -385,4 +385,80 @@ describe('Chrono model', () => {
             expect(err!.errors.durationInSeconds.message).toBe('Cast to Number failed for value "invalid" (type string) at path "durationInSeconds"');
         });
     });
+
+    describe('tests chrono\'s comment property', () => {
+        it('should handle missing comment', async () => {
+            const user = new User({
+                name: 'testuser for chrono',
+                email: 'testuser@exemple.com',
+                password: 'password123'
+            });
+            const savedUser = await user.save();
+
+            const chrono = new Chrono({
+                user: savedUser,
+                cubeType: '3x3',
+                token: tokenGenerator.generate(),
+                scrambleMoves: ['B2','F\'','R','L\'','D','B2','F2','D','B\'','L\'','B','F\'','U\'','B','L','R\'','F2','U2','F2','L\'','B2','R\'','L2','D2','R2'],
+                durationInSeconds: null,
+            });
+
+            const savedChrono = await chrono.save();
+            expect(savedChrono.comment).toBeUndefined();
+        });
+    });
+
+    it('should accept long comments', async () => {
+        const user = new User({
+            name: 'testuser for chrono',
+            email: 'testuser@exemple.com',
+            password: 'password123'
+        });
+        const savedUser = await user.save();
+
+        const longComment = 'a'.repeat(1000);
+        const chrono = new Chrono({
+            user: savedUser,
+            cubeType: '3x3',
+            token: tokenGenerator.generate(),
+            scrambleMoves: ['B2','F\'','R','L\'','D','B2','F2','D','B\'','L\'','B','F\'','U\'','B','L','R\'','F2','U2','F2','L\'','B2','R\'','L2','D2','R2'],
+            durationInSeconds: null,
+            comment: longComment
+        });
+
+        const savedChrono = await chrono.save();
+
+        expect(savedChrono).toBeDefined();
+        expect(savedChrono.comment).toEqual(longComment);
+    });
+
+    it('should reject excessively long comments', async () => {
+        const user = new User({
+            name: 'testuser for chrono',
+            email: 'testuser@exemple.com',
+            password: 'password123'
+        });
+        const savedUser = await user.save();
+
+        const longComment = 'a'.repeat(1001);
+        const chrono = new Chrono({
+            user: savedUser,
+            cubeType: '3x3',
+            token: tokenGenerator.generate(),
+            scrambleMoves: ['B2','F\'','R','L\'','D','B2','F2','D','B\'','L\'','B','F\'','U\'','B','L','R\'','F2','U2','F2','L\'','B2','R\'','L2','D2','R2'],
+            durationInSeconds: null,
+            comment: longComment
+        });
+
+        let err: MongoServerError | undefined;
+        try {
+            await chrono.save();
+        } catch (error) {
+            err = error as MongoServerError;
+        }
+
+        expect(err).toBeDefined();
+        expect(err!.name).toBe('ValidationError');
+        expect(err!.errors.comment).toBeDefined();
+    });
 });

@@ -13,8 +13,10 @@ const UserSchema: Schema<IUser> = new Schema<IUser>({
         type: String,
         unique: true,
         required: [true, 'Le pseudo est obligatoire !'],
-        minlength: [3, 'Ce pseudo est trop court.'],
-        trim: true
+        minlength: [3, 'Ce pseudo est trop court. Il doit contenir au moins 3 caractères.'],
+        maxlength: [25, 'Ce pseudo est trop long. Il doit contenir au maximum 25 caractères.'],
+        match: [/^[a-zA-Z0-9 _]+$/, 'Le pseudo ne peut contenir que des lettres, des chiffres, des espaces et des underscores.'],
+        trim: true,
     },
     email: {
         type: String,
@@ -24,16 +26,15 @@ const UserSchema: Schema<IUser> = new Schema<IUser>({
         validate: {
             validator: (value: string) => validator.isEmail(value),
             message: 'Veuillez fournir une adresse email valide'
-        }
+        },
     },
     password: {
         type: String,
         required: [true, 'Le mot de passe est obligatoire !'],
+        minlength: [7, 'Le mot de passe doit contenir au moins 7 caractères !'],
         trim: true,
-        minlength: [7, 'Ce mot de passe est trop petit !'],
     }
 });
-
 UserSchema.pre<IUser>('save', async function (next) {
     const user = this;
     if (user.isModified('password')) {

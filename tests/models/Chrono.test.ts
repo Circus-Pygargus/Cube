@@ -185,4 +185,81 @@ describe('Chrono model', () => {
         expect(err!.errors.cubeType).toBeDefined();
         expect(err!.errors.cubeType.message).toBe('`'+chrono.cubeType+'` is not a valid enum value for path `cubeType`.');
     });
+
+    describe('tests chrono\'s token property', () => {
+        it('should generate a token if not provided (done by mongodb)', async () => {
+            const user = new User({
+                name: 'testuser for chrono',
+                email: 'testuser@exemple.com',
+                password: 'password123'
+            });
+            const savedUser = await user.save();
+
+            const chrono = new Chrono({
+                user: savedUser,
+                cubeType: '3x3',
+                scrambleMoves: ['B2','F\'','R','L\'','D','B2','F2','D','B\'','L\'','B','F\'','U\'','B','L','R\'','F2','U2','F2','L\'','B2','R\'','L2','D2','R2'],
+                durationInSeconds: null,
+                comment: 'just a comment.',
+            });
+
+            const savedChrono = await chrono.save();
+
+            expect(savedChrono.token).toBeDefined();
+            expect(savedChrono.token).not.toBe('');
+        });
+
+        it('should not create a chrono with an explicitly undefined token', async () => {
+            const user = new User({
+                name: 'testuser for chrono',
+                email: 'testuser@exemple.com',
+                password: 'password123'
+            });
+            const savedUser = await user.save();
+
+            const chrono = new Chrono({
+                user: savedUser,
+                cubeType: '3x3',
+                token: undefined,
+                scrambleMoves: ['B2','F\'','R','L\'','D','B2','F2','D','B\'','L\'','B','F\'','U\'','B','L','R\'','F2','U2','F2','L\'','B2','R\'','L2','D2','R2'],
+                durationInSeconds: null,
+                comment: 'just a comment.',
+            });
+
+            const savedChrono = await chrono.save();
+
+            expect(savedChrono.token).toBeDefined();
+            expect(savedChrono.token).not.toBe('');
+        });
+
+        it('should not create a chrono with an explicitly null token', async () => {
+            const user = new User({
+                name: 'testuser for chrono',
+                email: 'testuser@exemple.com',
+                password: 'password123'
+            });
+            const savedUser = await user.save();
+
+            const chrono = new Chrono({
+                user: savedUser,
+                cubeType: '3x3',
+                token: null,
+                scrambleMoves: ['B2','F\'','R','L\'','D','B2','F2','D','B\'','L\'','B','F\'','U\'','B','L','R\'','F2','U2','F2','L\'','B2','R\'','L2','D2','R2'],
+                durationInSeconds: null,
+                comment: 'just a comment.',
+            });
+
+            let err: MongoServerError | undefined;
+            try {
+                await chrono.save();
+            } catch (error) {
+                err = error as MongoServerError;
+            }
+
+            expect(err).toBeDefined();
+            expect(err!.name).toBe('ValidationError');
+            expect(err!.errors.token).toBeDefined();
+            expect(err!.errors.token.message).toBe('Path `token` is required.');
+        });
+    });
 });

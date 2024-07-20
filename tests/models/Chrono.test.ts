@@ -262,4 +262,95 @@ describe('Chrono model', () => {
             expect(err!.errors.token.message).toBe('Path `token` is required.');
         });
     });
+
+    describe('tests chrono\'s scrambleMoves property', () => {
+        it('should not create a chrono if scrambleMoves is not defined.', async () => {
+            const user = new User({
+                name: 'testuser for chrono',
+                email: 'testuser@exemple.com',
+                password: 'password123'
+            });
+            const savedUser = await user.save();
+
+            const chrono = new Chrono({
+                user: savedUser,
+                cubeType: '3x3',
+                token: tokenGenerator.generate(),
+                durationInSeconds: null,
+                comment: 'just a comment.',
+            });
+
+            let err: MongoServerError | undefined;
+            try {
+                await chrono.save();
+            } catch (error) {
+                err = error as MongoServerError;
+            }
+
+            expect(err).toBeDefined();
+            expect(err!.name).toBe('ValidationError');
+            expect(err!.errors.scrambleMoves).toBeDefined();
+            expect(err!.errors.scrambleMoves.message).toBe('Validator failed for path `scrambleMoves` with value ``');
+        });
+
+        it('should not create a chrono if scrambleMoves is not set.', async () => {
+            const user = new User({
+                name: 'testuser for chrono',
+                email: 'testuser@exemple.com',
+                password: 'password123'
+            });
+            const savedUser = await user.save();
+
+            const chrono = new Chrono({
+                user: savedUser,
+                cubeType: '3x3',
+                token: tokenGenerator.generate(),
+                scrambleMoves: [],
+                durationInSeconds: null,
+                comment: 'just a comment.',
+            });
+
+            let err: MongoServerError | undefined;
+            try {
+                await chrono.save();
+            } catch (error) {
+                err = error as MongoServerError;
+            }
+
+            expect(err).toBeDefined();
+            expect(err!.name).toBe('ValidationError');
+            expect(err!.errors.scrambleMoves).toBeDefined();
+            expect(err!.errors.scrambleMoves.message).toBe('Validator failed for path `scrambleMoves` with value ``');
+        });
+
+        it('should not create a chrono if scrambleMoves is set with bad values.', async () => {
+            const user = new User({
+                name: 'testuser for chrono',
+                email: 'testuser@exemple.com',
+                password: 'password123'
+            });
+            const savedUser = await user.save();
+
+            const chrono = new Chrono({
+                user: savedUser,
+                cubeType: '3x3',
+                token: tokenGenerator.generate(),
+                scrambleMoves: [1, 2, 5, null], // 1, 2 and 5 will be transformed in string by mongoDB, but null will make the validation fail
+                durationInSeconds: null,
+                comment: 'just a comment.',
+            });
+
+            let err: MongoServerError | undefined;
+            try {
+                await chrono.save();
+            } catch (error) {
+                err = error as MongoServerError;
+            }
+
+            expect(err).toBeDefined();
+            expect(err!.name).toBe('ValidationError');
+            expect(err!.errors.scrambleMoves).toBeDefined();
+            expect(err!.errors.scrambleMoves.message).toBe('Validator failed for path `scrambleMoves` with value `1,2,5,`');
+        });
+    });
 });

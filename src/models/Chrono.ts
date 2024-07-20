@@ -9,6 +9,8 @@ interface IChrono extends Document {
     scrambleMoves: string[];
     durationInSeconds: number;
     comment: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 const ChronoSchema: Schema<IChrono> = new Schema<IChrono>({

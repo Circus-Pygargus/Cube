@@ -16,7 +16,7 @@ afterAll( async () => {
 beforeEach(async () => {
     await User.deleteMany();
     await Chrono.deleteMany();
-});
+}), (5000);
 
 describe('Chrono model', () => {
     it('should handle lifecycle of a chrono', async () => {

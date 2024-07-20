@@ -46,7 +46,9 @@ const ChronoSchema: Schema<IChrono> = new Schema<IChrono>({
         index: true
     },
     comment: {
-        type: String
+        type: String,
+        maxlength: 1000,
+        trim: true
     }
 }, { timestamps: true });
 

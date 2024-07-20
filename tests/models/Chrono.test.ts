@@ -353,4 +353,36 @@ describe('Chrono model', () => {
             expect(err!.errors.scrambleMoves.message).toBe('Validator failed for path `scrambleMoves` with value `1,2,5,`');
         });
     });
+
+    describe('tests chrono\'s durationInSeconds property', () => {
+        it('should reject non-numeric values for durationInSeconds', async () => {
+            const user = new User({
+                name: 'testuser for chrono',
+                email: 'testuser@exemple.com',
+                password: 'password123'
+            });
+            const savedUser = await user.save();
+
+            const chrono = new Chrono({
+                user: savedUser,
+                cubeType: '3x3',
+                token: tokenGenerator.generate(),
+                scrambleMoves: ['B2','F\'','R','L\'','D','B2','F2','D','B\'','L\'','B','F\'','U\'','B','L','R\'','F2','U2','F2','L\'','B2','R\'','L2','D2','R2'],
+                durationInSeconds: 'invalid',
+                comment: 'just a comment.',
+            });
+
+            let err: MongoServerError | undefined;
+            try {
+                await chrono.save();
+            } catch (error) {
+                err = error as MongoServerError;
+            }
+
+            expect(err).toBeDefined();
+            expect(err!.name).toBe('ValidationError');
+            expect(err!.errors.durationInSeconds).toBeDefined();
+            expect(err!.errors.durationInSeconds.message).toBe('Cast to Number failed for value "invalid" (type string) at path "durationInSeconds"');
+        });
+    });
 });

@@ -7,7 +7,7 @@ interface IChrono extends Document {
     cubeType: CubeType;
     token: string;
     scrambleMoves: string[];
-    durationInSeconds: number;
+    durationInSeconds: number | null;
     comment: string;
     createdAt?: Date;
     updatedAt?: Date;
@@ -38,7 +38,6 @@ const ChronoSchema: Schema<IChrono> = new Schema<IChrono>({
     },
     durationInSeconds: {
         type: Number,
-        required: true,
         index: true
     },
     comment: {

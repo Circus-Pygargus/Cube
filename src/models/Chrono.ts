@@ -34,7 +34,12 @@ const ChronoSchema: Schema<IChrono> = new Schema<IChrono>({
     scrambleMoves: {
         type: [String],
         required: true,
-        index: true
+        validate: {
+            validator: (arr: string[]): boolean => {
+                return arr.length > 0 && arr.every(move => typeof move === 'string');
+            },
+        },
+        index: true,
     },
     durationInSeconds: {
         type: Number,

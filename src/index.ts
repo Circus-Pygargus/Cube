@@ -44,7 +44,8 @@ const shutDown = async (server: any, signal: string) => {
 
     // homepage
     app.get('/', (req: Request, res: Response) => {
-        res.send('<h1>Cube !</h1>');
+        res.render('index', {
+        });
     });
 
 

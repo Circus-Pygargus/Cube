@@ -47,6 +47,15 @@ const shutDown = async (server: any, signal: string) => {
         res.send('<h1>Cube !</h1>');
     });
 
+
+    // 404 Error page, !! this must be the very last route
+    app.get('*', (req, res) => {
+        res.render('404', {
+            title: 'Cube',
+            message404: 'Page non trouvée !'
+        });
+    });
+
     // launch server
     const server = app.listen(port, hostname, () => {
         console.log(`Serveur is up at ${hostname}:${port}`);

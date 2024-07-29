@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from 'express';
+import path from 'path';
 import dotenv from 'dotenv';
 import dbManager from './db/databaseManager';
 
@@ -7,9 +8,28 @@ dotenv.config();
 
 const app: Express = express();
 
+// hbs module so we can use partial templates
+const hbs: any = require('hbs');
+
 const hostname: string = '127.0.0.1';
 
 const port = 3000;
+
+/* Define paths for express config */
+// build the public path from absolute path
+const publicDirectoryPath: string = path.join(__dirname, '../public');
+// views directory
+const viewsPath: string = path.join(__dirname, '../templates/views');
+// partials templates location
+const partialPath: string = path.join(__dirname, '../templates/partials');
+
+/* Setup handlebars engine and views location */
+// Tell express we're gonna use hbs as a template engine
+app.set('view engine', 'hbs');
+// Tell express we have moved the views directory
+app.set('views', viewsPath);
+// Tell hbs we're gonna use some partial templates
+hbs.registerPartials(partialPath);
 
 const shutDown = async (server: any, signal: string) => {
     console.log('Signal SIGTERM reçu : fermeture du serveur');

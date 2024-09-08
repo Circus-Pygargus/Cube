@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -52,6 +54,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Gedmo\Timestampable(on: 'update')]
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    /**
+     * @var Collection<int, Chrono>
+     */
+    #[ORM\OneToMany(targetEntity: Chrono::class, mappedBy: 'user')]
+    private Collection $chronos;
+
+    public function __construct()
+    {
+        $this->chronos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -148,5 +161,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return Collection<int, Chrono>
+     */
+    public function getChronos(): Collection
+    {
+        return $this->chronos;
+    }
+
+    public function addChrono(Chrono $chrono): static
+    {
+        if (!$this->chronos->contains($chrono)) {
+            $this->chronos->add($chrono);
+            $chrono->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChrono(Chrono $chrono): static
+    {
+        if ($this->chronos->removeElement($chrono)) {
+            // set the owning side to null (unless already changed)
+            if ($chrono->getUser() === $this) {
+                $chrono->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

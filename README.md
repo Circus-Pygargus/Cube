@@ -12,7 +12,11 @@ Initialisation du projet :
 
 Cloner le repo.
 
-Lancer cette commande :
+Remplacer les infos de la variable DATABASE_URL (db_user, db_password et db_name)
+
+Lancer ces commandes :
 ```bash
 composer install
+
+php bin/console doctrine:database:create
 ```

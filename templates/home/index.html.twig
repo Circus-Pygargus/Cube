@@ -4,4 +4,9 @@
 
 {% block body %}
     <h1>Cube assistant</h1>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a href="{{ path('app_game') }}">Obtenir un nouveau mélange</a>
+    {% else %}
+        <div>Vous devez vous connecter pour accéder aux fonctionnalités proposées.</div>
+    {% endif %}
 {% endblock %}

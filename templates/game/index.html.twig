@@ -5,6 +5,12 @@
 {% block body %}
     <h1>Cube assistant</h1>
 
-    {{ form(cubeTypeForm) }}
-    <a id="cube-scramble" href="{{ path('app_game_scramble') }}">Obtenir un nouveau mélange</a>
+    <div id="game-interface">
+        {% block gameInterface %}
+            {# This content will be replaced on fetch made on button#cube-scramble clic #}
+
+            {{ form(cubeTypeForm) }}
+            <button id="cube-scramble">Obtenir un nouveau mélange</button>
+        {% endblock %}
+    </div>
 {% endblock %}

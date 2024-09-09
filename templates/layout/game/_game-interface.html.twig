@@ -1,0 +1,10 @@
+{% block gameInterface %}
+    {{ form(cubeTypeForm) }}
+    <button id="cube-scramble">Obtenir un nouveau mélange</button>
+
+    <div>
+    {% for move in scrambleMoves %}
+        <div>{{ move }}</div>
+    {% endfor %}
+    </div>
+{% endblock %}

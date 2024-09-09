@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2581dfedf3fa326703547000bca37bf",
+    "content-hash": "aebb7d97899704e0a8b29b9d43ccf135",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2193,6 +2193,60 @@
                 "source": "https://github.com/php-fig/log/tree/3.0.0"
             },
             "time": "2021-07-14T16:46:02+00:00"
+        },
+        {
+            "name": "robiningelbrecht/twisty-puzzle-scrambler",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robiningelbrecht/twisty-puzzle-scrambler.git",
+                "reference": "415b0c63b6dd8500ced6a7ef770ec564ddc24306"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robiningelbrecht/twisty-puzzle-scrambler/zipball/415b0c63b6dd8500ced6a7ef770ec564ddc24306",
+                "reference": "415b0c63b6dd8500ced6a7ef770ec564ddc24306",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1 || ^8.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.15",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^10.0",
+                "robiningelbrecht/phpunit-pretty-print": "^1.2",
+                "spatie/phpunit-snapshot-assertions": "^5.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RobinIngelbrecht\\TwistyPuzzleScrambler\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robin Ingelbrecht",
+                    "email": "ingelbrecht_robin@hotmail.com"
+                }
+            ],
+            "description": "Generate, verify and analyse twisty puzzle scrambles",
+            "keywords": [
+                "Rubiks cube",
+                "Speedcubing",
+                "Twisty puzzles",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/robiningelbrecht/twisty-puzzle-scrambler/issues",
+                "source": "https://github.com/robiningelbrecht/twisty-puzzle-scrambler/tree/master"
+            },
+            "time": "2023-10-11T12:22:12+00:00"
         },
         {
             "name": "stof/doctrine-extensions-bundle",
@@ -10132,7 +10186,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "robiningelbrecht/twisty-puzzle-scrambler": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

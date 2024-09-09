@@ -108,4 +108,9 @@ class ScrambleMove
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return implode(' ', $this->getMoves());
+    }
 }

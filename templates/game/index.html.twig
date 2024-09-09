@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cube{% endblock %}
+
+{% block body %}
+    <h1>Cube assistant</h1>
+
+    {{ form(cubeTypeForm) }}
+    <a id="cube-scramble" href="{{ path('app_game_scramble') }}">Obtenir un nouveau mélange</a>
+{% endblock %}

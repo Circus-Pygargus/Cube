@@ -9,6 +9,7 @@ use App\Form\Type\ChronoType;
 use App\Form\Type\CubeFormType;
 use App\Service\ScramblerService;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -36,7 +37,9 @@ class GameController extends AbstractController
         EntityManagerInterface $entityManager,
         ScramblerService $scramblerService,
         FormFactoryInterface $formFactory,
-    ): JsonResponse {
+        LoggerInterface $logger,
+    ): JsonResponse
+    {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         // read JSON content from request
@@ -61,24 +64,30 @@ class GameController extends AbstractController
             return new JsonResponse(['isOk' => false, 'message' => 'Invalid cube type'], Response::HTTP_BAD_REQUEST);
         }
 
-        // Generate a new scramble
-        $moves = $scramblerService->generateScramble($cubeType);
+        try{
+            // Generate a new scramble
+            $moves = $scramblerService->generateScramble($cubeType);
 
-        // Create scrambleMove
-        $scrambleMove = new ScrambleMove();
-        $scrambleMove->setCubeType($cubeType);
-        $scrambleMove->setMoves($moves);
+            // Create scrambleMove
+            $scrambleMove = new ScrambleMove();
+            $scrambleMove->setCubeType($cubeType);
+            $scrambleMove->setMoves($moves);
 
-        // Create chrono
-        $chrono = new Chrono();
-        $chrono->setCubeType($cubeType);
-        $chrono->setScrambleMove($scrambleMove);
-        $chrono->setUser($this->getUser());
+            // Create chrono
+            $chrono = new Chrono();
+            $chrono->setCubeType($cubeType);
+            $chrono->setScrambleMove($scrambleMove);
+            $chrono->setUser($this->getUser());
 
-        // Save scrambleMove and chrono in db
-        $entityManager->persist($scrambleMove);
-        $entityManager->persist($chrono);
-        $entityManager->flush();
+            // Save scrambleMove and chrono in db
+            $entityManager->persist($scrambleMove);
+            $entityManager->persist($chrono);
+            $entityManager->flush();
+        } catch (\Exception $e) {
+            $logger->warning('Problème pendant la récupération d\'un mélange !');
+            $logger->error($e->getMessage());
+            return new JsonResponse(['isOk' => false, 'message' => 'Un problème est survenu !'], Response::HTTP_BAD_REQUEST);
+        }
 
         // Create needed forms for view
         $cubeTypeForm = $formFactory->create(CubeFormType::class, [

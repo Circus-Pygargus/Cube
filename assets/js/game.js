@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const gameInterfaceDiv = document.querySelector('#game-interface');
+    const spinningLoader = document.querySelector('#loader');
 
     // Events delegation management
     gameInterfaceDiv.addEventListener('click', async (event) => {
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             try {
+                spinningLoader.classList.remove('hidden');
                 const response = await fetch('/game/scramble', {
                     method: 'POST',
                     headers: {
@@ -40,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const json = await response.json();
                 if (json.isOk === true) {
                     gameInterfaceDiv.innerHTML = json.render;
+                    spinningLoader.classList.add('hidden');
                 } else {
                     /** @todo afficher un message explicatif à l'utilisateur */
                     console.error('Erreur dans la réponse du serveur:', json.message);

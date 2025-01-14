@@ -8,11 +8,28 @@
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
-        {% block javascripts %}
+        {% block javascripts %}
+
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
+
+        <div id="loader" class="hidden">
+            <svg width="500" height="500" xmlns="http://www.w3/org/2000/svg">
+                <rect width="50" height="10" x="125" y="245" rx="20" ry="20" fill="orange">
+                    <animateTransform
+                        attributeName="transform"
+                        attributeType="XML"
+                        type="rotate"
+                        dur=".5s"
+                        from="0 250 250"
+                        to="360 250 250"
+                        repeatCount="indefinite"
+                    />
+                </rect>
+            </svg>
+        </div>
     </body>
 </html>

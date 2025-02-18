@@ -4,10 +4,9 @@ namespace App\Controller;
 
 use App\CubeType\CubeType;
 use App\Entity\Chrono;
-use App\Entity\ScrambleMove;
 use App\Form\Type\ChronoType;
 use App\Form\Type\CubeFormType;
-use App\Service\ScramblerService;
+use App\Service\ScrambleMoveService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,7 +34,7 @@ class GameController extends AbstractController
     public function scramble(
         Request $request,
         EntityManagerInterface $entityManager,
-        ScramblerService $scramblerService,
+        ScrambleMoveService $scrambleMoveService,
         FormFactoryInterface $formFactory,
         LoggerInterface $logger,
     ): JsonResponse
@@ -65,13 +64,7 @@ class GameController extends AbstractController
         }
 
         try{
-            // Generate a new scramble
-            $moves = $scramblerService->generateScramble($cubeType);
-
-            // Create scrambleMove
-            $scrambleMove = new ScrambleMove();
-            $scrambleMove->setCubeType($cubeType);
-            $scrambleMove->setMoves($moves);
+            $scrambleMove = $scrambleMoveService->getNextScrambleMove($cubeType);
 
             // Create chrono
             $chrono = new Chrono();
@@ -79,9 +72,9 @@ class GameController extends AbstractController
             $chrono->setScrambleMove($scrambleMove);
             $chrono->setUser($this->getUser());
 
-            // Save scrambleMove and chrono in db
+            // Save scrambleMove in db
             $entityManager->persist($scrambleMove);
-            $entityManager->persist($chrono);
+            // $entityManager->persist($chrono);
             $entityManager->flush();
         } catch (\Exception $e) {
             $logger->warning('Problème pendant la récupération d\'un mélange !');
@@ -93,12 +86,14 @@ class GameController extends AbstractController
         $cubeTypeForm = $formFactory->create(CubeFormType::class, [
             'type' => $cubeType,
         ]);
-        $chronoForm = $this->createForm(ChronoType::class, $chrono);
+        $chronoForm = $this->createForm(ChronoType::class, $chrono, [
+            'cubeTypeValue' => $chrono->getCubeType()->value,
+        ]);
 
         // Render partial HTML template
         $view = $this->renderView('layout/game/_game-interface.html.twig', [
             'cubeTypeForm' => $cubeTypeForm,
-            'scrambleMoves' => $moves,
+            'scrambleMoves' => $scrambleMove->getMoves(),
             'chronoForm' => $chronoForm,
         ]);
 

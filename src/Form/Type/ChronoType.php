@@ -8,8 +8,10 @@ use App\Entity\ScrambleMove;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -34,24 +36,24 @@ class ChronoType extends AbstractType
                 'trim' => true,
                 'row_attr' => ['class' => 'hidden'],
             ])
-            ->add('cubeType', EnumType::class, [
-                'class' => CubeType::class,
-                'required' => true,
+            ->add('cubeType', TextType::class, [
                 'disabled' => true,
-                'row_attr' => ['class' => 'hidden'],
+                'data' => $options['cubeTypeValue'],
+                'mapped' => false,
+                'row_attr' => [
+                    'class' => 'hidden',
+                ],
             ])
-            ->add('scrambleMove', EntityType::class, [
-                'class' => ScrambleMove::class,
-                'required' => true,
-                'disabled' => true,
-                'row_attr' => ['class' => 'hidden'],
-            ]);
+            ->add('scrambleMove', HiddenType::class, [
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Chrono::class
+            'data_class' => Chrono::class,
+            'cubeTypeValue' => null,
         ]);
     }
 }

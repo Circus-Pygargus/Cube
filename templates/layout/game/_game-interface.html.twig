@@ -9,4 +9,8 @@
     </div>
 
     {{ form(chronoForm) }}
+    <div>
+        <button id="chrono-btn-1" class="chrono-btn">{{ isUsingTouchScreen ? 'Presse ici' : 'Presse CTRL gauche' }} </button>
+        <button id="chrono-btn-2" class="chrono-btn">{{ isUsingTouchScreen ? 'Presse ici' : 'Presse CTRL droit' }} </button>
+    </div>
 {% endblock %}

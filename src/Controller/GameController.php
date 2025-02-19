@@ -90,11 +90,15 @@ class GameController extends AbstractController
             'cubeTypeValue' => $chrono->getCubeType()->value,
         ]);
 
+        // Check if user is using a touch screen
+        $isUsingTouchScreen = $content['isUsingTouchScreen'] ?? false;
+
         // Render partial HTML template
         $view = $this->renderView('layout/game/_game-interface.html.twig', [
             'cubeTypeForm' => $cubeTypeForm,
             'scrambleMoves' => $scrambleMove->getMoves(),
             'chronoForm' => $chronoForm,
+            'isUsingTouchScreen' => $isUsingTouchScreen,
         ]);
 
         return new JsonResponse([

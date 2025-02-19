@@ -4,6 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let isTouchScreen;
 
+    let isLeftButtonPressed = false;
+    let isRightButtonPressed = false;
+    let timer;
+    let isChronoReadytoBegin = false;
+    let isChronoRunning = false;
+    let interval;
+
     gameInterfaceDiv.addEventListener('touchstart', screenTouched);
 
     // Events delegation management
@@ -70,9 +77,90 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    document.addEventListener('keydown', (event) => {
+        if (event.code === 'ControlLeft' && isLeftButtonPressed === false) {
+            isLeftButtonPressed = true;
+            checkForBothBtns();
+        } else if (event.code === 'ControlRight' && isRightButtonPressed === false) {
+            isRightButtonPressed = true;
+            checkForBothBtns();
+        }
+    });
+
+    document.addEventListener('keyup', (event) => {
+        if (event.code === 'ControlLeft') {
+            isLeftButtonPressed = false;
+            if (isChronoReadytoBegin) {
+                isChronoReadytoBegin = false;
+                startChrono();
+            }
+        } else if (event.code === 'ControlRight') {
+            isRightButtonPressed = false;
+            if (isChronoReadytoBegin) {
+                isChronoReadytoBegin = false;
+                startChrono();
+            }
+        }
+    });
+
+    gameInterfaceDiv.addEventListener('touchstart', (event) => {
+        if (event.target && event.target.matches('#chrono-btn-1') && isLeftButtonPressed === false) {
+            isLeftButtonPressed = true;
+            checkForBothBtns();
+        } else if (event.target && event.target.matches('#chrono-btn-2') && isRightButtonPressed === false) {
+            isRightButtonPressed = true;
+            checkForBothBtns();
+        }
+    });
+
+    gameInterfaceDiv.addEventListener('touchend', (event) => {
+        if (event.target && event.target.matches('#chrono-btn-1')) {
+            isLeftButtonPressed = false;
+            if (isChronoReadytoBegin) {
+                isChronoReadytoBegin = false;
+                startChrono();
+            }
+        } else if (event.target && event.target.matches('#chrono-btn-2')) {
+            isRightButtonPressed = false;
+            if (isChronoReadytoBegin) {
+                isChronoReadytoBegin = false;
+                startChrono();
+            }
+        }
+    });
 
     function screenTouched(event) {
         isTouchScreen = true;
         gameInterfaceDiv.removeEventListener('touchstart', screenTouched);
+    }
+
+    function checkForBothBtns() {
+        if (isLeftButtonPressed && isRightButtonPressed) {
+            if (isChronoRunning) {
+                stopChrono();
+            } else {
+                clearTimeout(timer);
+                timer = setTimeout(function() {
+                    if (isLeftButtonPressed && isRightButtonPressed) {
+                        isChronoReadytoBegin = true;
+                    }
+                }, 2000);
+            }
+        }
+    }
+
+    function startChrono() {
+        let startTime = Date.now();
+        interval = setInterval(function() {
+            let currentTime = Date.now();
+            let elapseTime = currentTime - startTime;
+            console.log(elapseTime)
+        }, 1000);
+        isChronoRunning = true;
+    }
+
+    function stopChrono() {
+        clearInterval(interval);
+        isChronoRunning = false;
     }
 });

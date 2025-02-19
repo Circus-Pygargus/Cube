@@ -10,7 +10,12 @@
 
     {{ form(chronoForm) }}
     <div>
-        <button id="chrono-btn-1" class="chrono-btn">{{ isUsingTouchScreen ? 'Presse ici' : 'Presse CTRL gauche' }} </button>
-        <button id="chrono-btn-2" class="chrono-btn">{{ isUsingTouchScreen ? 'Presse ici' : 'Presse CTRL droit' }} </button>
+        {% if isUsingTouchScreen %}
+            Appuie sur les 2 boutons pour lancer le chrono
+            <button id="chrono-btn-1" class="chrono-btn">Presse ici</button>
+            <button id="chrono-btn-2" class="chrono-btn">Presse ici</button>
+        {% else %}
+            Appuie sur les 2 touches CTRL pour lancer le chrono
+        {% endif %}
     </div>
 {% endblock %}

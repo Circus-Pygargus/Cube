@@ -14,13 +14,15 @@
             <span>GO</span>
         </div>
     </div>
-    <div>
+    <div id="dual-press-hint">
         {% if isUsingTouchScreen %}
-            Appuie sur les 2 boutons pour lancer le chrono
+            <a id="chrono-start-hint">Appuie sur les 2 boutons pour lancer le chrono</a>
+            <a id="chrono-stop-hint" class="hidden">Appuie sur les 2 boutons pour arrêter le chrono</a>
             <button id="chrono-btn-1" class="chrono-btn">Presse ici</button>
             <button id="chrono-btn-2" class="chrono-btn">Presse ici</button>
         {% else %}
-            Appuie sur les 2 touches CTRL pour lancer le chrono
+            <a id="chrono-start-hint">Appuie sur les 2 touches CTRL pour lancer le chrono</a>
+            <a id="chrono-stop-hint" class="hidden">Appuie sur les 2 touches CTRL pour arrêter le chrono</a>
         {% endif %}
     </div>
 {% endblock %}

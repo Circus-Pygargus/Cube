@@ -2,13 +2,18 @@
     {{ form(cubeTypeForm) }}
     <button id="cube-scramble">Obtenir un nouveau mélange</button>
 
-    <div>
+    <div id="scramble-moves">
     {% for move in scrambleMoves %}
         <div>{{ move }}</div>
     {% endfor %}
     </div>
 
     {{ form(chronoForm) }}
+    <div id="timer-circle" class="hidden">
+        <div id="go-text" class="hidden">
+            <span>GO</span>
+        </div>
+    </div>
     <div>
         {% if isUsingTouchScreen %}
             Appuie sur les 2 boutons pour lancer le chrono

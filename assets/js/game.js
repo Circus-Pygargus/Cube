@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let isTouchScreen;
 
+    let canUseChrono = false;
     let isLeftButtonPressed = false;
     let isRightButtonPressed = false;
     let timer;
@@ -65,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const json = await response.json();
                 if (json.isOk === true) {
                     gameInterfaceDiv.innerHTML = json.render;
+                    canUseChrono = true;
                     spinningLoader.classList.add('hidden');
                 } else {
                     /** @todo afficher un message explicatif à l'utilisateur */
@@ -78,53 +80,69 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.addEventListener('keydown', (event) => {
-        if (event.code === 'ControlLeft' && isLeftButtonPressed === false) {
-            isLeftButtonPressed = true;
-            checkForBothBtns();
-        } else if (event.code === 'ControlRight' && isRightButtonPressed === false) {
-            isRightButtonPressed = true;
-            checkForBothBtns();
+        if (canUseChrono) {
+            if (event.code === 'ControlLeft' && isLeftButtonPressed === false) {
+                isLeftButtonPressed = true;
+                checkForBothBtns();
+            } else if (event.code === 'ControlRight' && isRightButtonPressed === false) {
+                isRightButtonPressed = true;
+                checkForBothBtns();
+            }
         }
     });
 
     document.addEventListener('keyup', (event) => {
-        if (event.code === 'ControlLeft') {
-            isLeftButtonPressed = false;
-            if (isChronoReadytoBegin) {
-                isChronoReadytoBegin = false;
-                startChrono();
-            }
-        } else if (event.code === 'ControlRight') {
-            isRightButtonPressed = false;
-            if (isChronoReadytoBegin) {
-                isChronoReadytoBegin = false;
-                startChrono();
+        if (canUseChrono) {
+            if (event.code === 'ControlLeft') {
+                const circle = document.querySelector("#timer-circle");
+                circle.classList.remove('filling');
+                isLeftButtonPressed = false;
+                if (isChronoReadytoBegin) {
+                    isChronoReadytoBegin = false;
+                    startChrono();
+                }
+            } else if (event.code === 'ControlRight') {
+                const circle = document.querySelector("#timer-circle");
+                circle.classList.remove('filling');
+                isRightButtonPressed = false;
+                if (isChronoReadytoBegin) {
+                    isChronoReadytoBegin = false;
+                    startChrono();
+                }
             }
         }
     });
 
     gameInterfaceDiv.addEventListener('touchstart', (event) => {
-        if (event.target && event.target.matches('#chrono-btn-1') && isLeftButtonPressed === false) {
-            isLeftButtonPressed = true;
-            checkForBothBtns();
-        } else if (event.target && event.target.matches('#chrono-btn-2') && isRightButtonPressed === false) {
-            isRightButtonPressed = true;
-            checkForBothBtns();
+        if (canUseChrono) {
+            if (event.target && event.target.matches('#chrono-btn-1') && isLeftButtonPressed === false) {
+                isLeftButtonPressed = true;
+                checkForBothBtns();
+            } else if (event.target && event.target.matches('#chrono-btn-2') && isRightButtonPressed === false) {
+                isRightButtonPressed = true;
+                checkForBothBtns();
+            }
         }
     });
 
     gameInterfaceDiv.addEventListener('touchend', (event) => {
-        if (event.target && event.target.matches('#chrono-btn-1')) {
-            isLeftButtonPressed = false;
-            if (isChronoReadytoBegin) {
-                isChronoReadytoBegin = false;
-                startChrono();
-            }
-        } else if (event.target && event.target.matches('#chrono-btn-2')) {
-            isRightButtonPressed = false;
-            if (isChronoReadytoBegin) {
-                isChronoReadytoBegin = false;
-                startChrono();
+        if (canUseChrono) {
+            if (event.target && event.target.matches('#chrono-btn-1')) {
+                const circle = document.querySelector("#timer-circle");
+                circle.classList.remove('filling');
+                isLeftButtonPressed = false;
+                if (isChronoReadytoBegin) {
+                    isChronoReadytoBegin = false;
+                    startChrono();
+                }
+            } else if (event.target && event.target.matches('#chrono-btn-2')) {
+                const circle = document.querySelector("#timer-circle");
+                circle.classList.remove('filling');
+                isRightButtonPressed = false;
+                if (isChronoReadytoBegin) {
+                    isChronoReadytoBegin = false;
+                    startChrono();
+                }
             }
         }
     });
@@ -135,23 +153,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkForBothBtns() {
+        const scrambleContainer = document.querySelector('#scramble-moves');
+        const circle = document.querySelector("#timer-circle");
+        scrambleContainer.classList.add('hidden');
+        if (!isChronoRunning) {
+            circle.classList.remove('hidden');
+        }
         if (isLeftButtonPressed && isRightButtonPressed) {
             if (isChronoRunning) {
                 stopChrono();
             } else {
+                circle.classList.add('filling');
                 clearTimeout(timer);
-                timer = setTimeout(function() {
+                timer = setTimeout(() => {
                     if (isLeftButtonPressed && isRightButtonPressed) {
                         isChronoReadytoBegin = true;
+                        circle.querySelector('#go-text').classList.remove('hidden');
                     }
-                }, 2000);
+                }, 500);
             }
         }
     }
 
     function startChrono() {
+        const circle = document.querySelector("#timer-circle");
+        circle.classList.add('hidden');
+        circle.querySelector('#go-text').classList.add('hidden');
         let startTime = Date.now();
-        interval = setInterval(function() {
+        interval = setInterval(() => {
             let currentTime = Date.now();
             let elapseTime = currentTime - startTime;
             console.log(elapseTime)
@@ -162,5 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function stopChrono() {
         clearInterval(interval);
         isChronoRunning = false;
+        canUseChrono = false;
     }
 });

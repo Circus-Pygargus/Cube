@@ -178,15 +178,37 @@ document.addEventListener('DOMContentLoaded', () => {
     function startChrono() {
         document.querySelector('#chrono-start-hint').classList.add('hidden');
         document.querySelector('#chrono-stop-hint').classList.remove('hidden');
+        const clockContainer = document.querySelector('#clock-container');
+        const clock = clockContainer.querySelector('#clock');
         const circle = document.querySelector("#timer-circle");
         circle.classList.add('hidden');
         circle.querySelector('#go-text').classList.add('hidden');
+        clockContainer.classList.remove('hidden');
         let startTime = Date.now();
         interval = setInterval(() => {
             let currentTime = Date.now();
             let elapseTime = currentTime - startTime;
-            console.log(elapseTime)
-        }, 1000);
+            let hours = Math.floor(elapseTime / 3600000);
+            let minutes = Math.floor((elapseTime - (hours * 3600000)) / 60000);
+            let seconds = Math.floor((elapseTime - (hours * 3600000) - (minutes * 60000)) / 1000);
+            let millisecs = elapseTime - (hours * 3600000) - (minutes * 60000) - (seconds * 1000);
+            let formattedMillisecs = String(millisecs).padStart(3, '0'); // Force 3 digits display
+            let result = '';
+            if (hours) {
+                result += hours + ':';
+                if (minutes < 10) {
+                    result += '0';
+                }
+            }
+            if (minutes) {
+                result += minutes + ':';
+                if (seconds < 10) {
+                    result += '0';
+                }
+            }
+            result += seconds + '.' + formattedMillisecs;
+            clock.innerHTML = result;
+        }, 1);
         isChronoRunning = true;
     }
 

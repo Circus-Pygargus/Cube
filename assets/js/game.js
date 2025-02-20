@@ -176,6 +176,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startChrono() {
+        document.querySelector('#chrono-start-hint').classList.add('hidden');
+        document.querySelector('#chrono-stop-hint').classList.remove('hidden');
         const circle = document.querySelector("#timer-circle");
         circle.classList.add('hidden');
         circle.querySelector('#go-text').classList.add('hidden');
@@ -189,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function stopChrono() {
+        document.querySelector('#chrono-stop-hint').classList.add('hidden');
         clearInterval(interval);
         isChronoRunning = false;
         canUseChrono = false;

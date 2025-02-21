@@ -50,3 +50,12 @@
   font-size: 60px;
   color: #ddd;
 }
+
+#dual-press-hint {
+  position: fixed;
+  z-index: 2;
+
+  #chrono-stop-hint {
+    color: #ddd;
+  }
+}

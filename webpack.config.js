@@ -49,7 +49,7 @@ Encore
     .copyFiles({
         from: './assets/fonts',
         to: 'fonts/[path][name].[ext]'
-    });
+    })
 
     // configure Babel
     // .configureBabel((config) => {

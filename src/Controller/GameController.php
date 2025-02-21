@@ -88,6 +88,7 @@ class GameController extends AbstractController
         ]);
         $chronoForm = $this->createForm(ChronoType::class, $chrono, [
             'cubeTypeValue' => $chrono->getCubeType()->value,
+            'action' => $this->generateUrl('app_game_chrono'),
         ]);
 
         // Check if user is using a touch screen

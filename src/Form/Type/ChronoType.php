@@ -29,6 +29,7 @@ class ChronoType extends AbstractType
                         'message' => 'Tu ne peux pas enregistrer un temps vide ...',
                     ]),
                 ],
+                'label' => 'Durée'
             ])
             ->add('comment', TextareaType::class, [
                 'label' => 'Commentaire',

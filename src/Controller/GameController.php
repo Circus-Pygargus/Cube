@@ -106,4 +106,13 @@ class GameController extends AbstractController
             'render' => $view,
         ]);
     }
+
+    #[Route('/game/chrono', name: 'app_game_chrono', methods: ['POST'])]
+    public function recordChrono(
+        Request $request,
+    ): Response
+    {
+        return $this->render('game/chrono.html.twig', [
+        ]);
+    }
 }

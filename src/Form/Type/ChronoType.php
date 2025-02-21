@@ -56,6 +56,8 @@ class ChronoType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Chrono::class,
             'cubeTypeValue' => null,
+            'action' => null,
+            'method' => 'POST',
         ]);
     }
 }

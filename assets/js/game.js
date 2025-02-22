@@ -188,26 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
         interval = setInterval(() => {
             let currentTime = Date.now();
             let elapseTime = currentTime - startTime;
-            let hours = Math.floor(elapseTime / 3600000);
-            let minutes = Math.floor((elapseTime - (hours * 3600000)) / 60000);
-            let seconds = Math.floor((elapseTime - (hours * 3600000) - (minutes * 60000)) / 1000);
-            let millisecs = elapseTime - (hours * 3600000) - (minutes * 60000) - (seconds * 1000);
-            let formattedMillisecs = String(millisecs).padStart(3, '0'); // Force 3 digits display
-            let result = '';
-            if (hours) {
-                result += hours + ':';
-                if (minutes < 10) {
-                    result += '0';
-                }
-            }
-            if (minutes) {
-                result += minutes + ':';
-                if (seconds < 10) {
-                    result += '0';
-                }
-            }
-            result += seconds + '.' + formattedMillisecs;
-            clock.innerHTML = result;
+            clock.innerHTML = formatChrono(elapseTime);
         }, 1);
         isChronoRunning = true;
     }
@@ -219,5 +200,33 @@ document.addEventListener('DOMContentLoaded', () => {
         canUseChrono = false;
         document.querySelector('#chrono-form-container').classList.remove('hidden');
         document.querySelector('#clock-container').classList.add('hidden');
+    }
+
+    function formatChrono(duration) {
+        const hours = Math.floor(duration / 3600000);
+        let remaining = duration - (hours * 3600000);
+        const minutes = Math.floor(remaining / 60000);
+        remaining = remaining - (minutes * 60000);
+        const seconds = Math.floor(remaining / 1000);
+        const millisecs = remaining - (seconds * 1000);
+
+        const formattedMillisecs = String(millisecs).padStart(3, '0');
+        let result = '';
+
+        if (hours) {
+            result += hours + ':';
+            if (minutes < 10) {
+                result += '0';
+            }
+        }
+        if (minutes) {
+            result += minutes + ':';
+            if (seconds < 10) {
+                result += '0';
+            }
+        }
+        result += seconds + '.' + formattedMillisecs;
+
+        return result;
     }
 });

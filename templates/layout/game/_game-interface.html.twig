@@ -8,7 +8,9 @@
     {% endfor %}
     </div>
 
-    {{ form(chronoForm) }}
+    <div id="chrono-form-container" class="hidden">
+        {{ form(chronoForm) }}
+    </div>
     <div id="timer-circle" class="hidden">
         <div id="go-text" class="hidden">
             <span>GO</span>

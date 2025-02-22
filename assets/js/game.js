@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(interval);
         isChronoRunning = false;
         canUseChrono = false;
-        document.querySelector('#chrono-form').classList.remove('hidden');
+        document.querySelector('#chrono-form-container').classList.remove('hidden');
         document.querySelector('#clock-container').classList.add('hidden');
     }
 });

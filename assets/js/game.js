@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isChronoReadytoBegin = false;
     let isChronoRunning = false;
     let interval;
+    let duration;
 
     gameInterfaceDiv.addEventListener('touchstart', screenTouched);
 
@@ -187,8 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let startTime = Date.now();
         interval = setInterval(() => {
             let currentTime = Date.now();
-            let elapseTime = currentTime - startTime;
-            clock.innerHTML = formatChrono(elapseTime);
+            duration = currentTime - startTime;
+            clock.innerHTML = formatChrono(duration);
         }, 1);
         isChronoRunning = true;
     }
@@ -198,13 +199,15 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(interval);
         isChronoRunning = false;
         canUseChrono = false;
+        document.querySelector('#chrono_duration').value = duration;
+        document.querySelector('#readable-duration').innerHTML = formatChrono(duration);
         document.querySelector('#chrono-form-container').classList.remove('hidden');
         document.querySelector('#clock-container').classList.add('hidden');
     }
 
-    function formatChrono(duration) {
-        const hours = Math.floor(duration / 3600000);
-        let remaining = duration - (hours * 3600000);
+    function formatChrono(durationToFormat) {
+        const hours = Math.floor(durationToFormat / 3600000);
+        let remaining = durationToFormat - (hours * 3600000);
         const minutes = Math.floor(remaining / 60000);
         remaining = remaining - (minutes * 60000);
         const seconds = Math.floor(remaining / 1000);

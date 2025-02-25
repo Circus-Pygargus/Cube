@@ -56,6 +56,17 @@ class ScrambleMoveRepository extends ServiceEntityRepository
         }
     }
 
+    public function findOneByMovesAsString(string $moves): ?ScrambleMove
+    {
+        $movesArray = explode(' ', trim($moves));
+
+        return $this->createQueryBuilder('sm')
+            ->where('sm.moves = :moves')
+            ->setParameter('moves', json_encode($movesArray))
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     //    /**
     //     * @return ScrambleMove[] Returns an array of ScrambleMove objects
     //     */

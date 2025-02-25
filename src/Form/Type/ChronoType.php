@@ -5,6 +5,8 @@ namespace App\Form\Type;
 use App\CubeType\CubeType;
 use App\Entity\Chrono;
 use App\Entity\ScrambleMove;
+use App\Form\DataTransformer\StringToScrambleMoveTransformer;
+use App\Repository\ScrambleMoveRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -19,6 +21,12 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ChronoType extends AbstractType
 {
+    public function __construct(
+        private ScrambleMoveRepository $scrambleMoveRepository,
+    )
+    {
+
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -52,6 +60,9 @@ class ChronoType extends AbstractType
                 'label' => 'Enregistrer',
             ])
             ;
+
+        $builder->get('scrambleMove')
+                ->addModelTransformer(new StringToScrambleMoveTransformer($this->scrambleMoveRepository));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

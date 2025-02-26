@@ -5,6 +5,7 @@ namespace App\Form\Type;
 use App\CubeType\CubeType;
 use App\Entity\Chrono;
 use App\Entity\ScrambleMove;
+use App\Form\DataTransformer\StringToCubeTypeTransformer;
 use App\Form\DataTransformer\StringToScrambleMoveTransformer;
 use App\Repository\ScrambleMoveRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -46,13 +47,8 @@ class ChronoType extends AbstractType
                 'required' => false,
                 'trim' => true,
             ])
-            ->add('cubeType', TextType::class, [
-                'disabled' => true,
-                'data' => $options['cubeTypeValue'],
-                'mapped' => false,
-                'row_attr' => [
-                    'class' => 'hidden',
-                ],
+            ->add('cubeType', HiddenType::class, [
+                'required' => true,
             ])
             ->add('scrambleMove', HiddenType::class, [
             ])
@@ -60,6 +56,9 @@ class ChronoType extends AbstractType
                 'label' => 'Enregistrer',
             ])
             ;
+
+        $builder->get('cubeType')
+                ->addModelTransformer(new StringToCubeTypeTransformer());
 
         $builder->get('scrambleMove')
                 ->addModelTransformer(new StringToScrambleMoveTransformer($this->scrambleMoveRepository));
@@ -69,7 +68,7 @@ class ChronoType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Chrono::class,
-            'cubeTypeValue' => null,
+            // 'cubeTypeValue' => null,
             'action' => null,
             'method' => 'POST',
         ]);

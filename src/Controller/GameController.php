@@ -6,6 +6,7 @@ use App\CubeType\CubeType;
 use App\Entity\Chrono;
 use App\Form\Type\ChronoType;
 use App\Form\Type\CubeFormType;
+use App\Repository\ScrambleMoveRepository;
 use App\Service\ScrambleMoveService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -110,8 +111,30 @@ class GameController extends AbstractController
     #[Route('/game/chrono', name: 'app_game_chrono', methods: ['POST'])]
     public function recordChrono(
         Request $request,
+        ScrambleMoveRepository $scrambleMoveRepository,
+        EntityManagerInterface $em,
+        LoggerInterface $logger,
     ): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $chrono = new Chrono();
+        $form = $this->createForm(ChronoType::class, $chrono, [
+            'action' => $this->generateUrl('app_game_chrono'),
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $chrono->setUser($this->getUser());
+                $em->persist($chrono);
+                $em->flush();
+            } catch (\Exception $e) {
+                $logger->error($e->getMessage());
+                $logger->debug($e->getTraceAsString());
+            }
+        }
+
         return $this->render('game/chrono.html.twig', [
         ]);
     }

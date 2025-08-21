@@ -87,7 +87,6 @@ class GameController extends AbstractController
             'type' => $cubeType,
         ]);
         $chronoForm = $this->createForm(ChronoType::class, $chrono, [
-            'cubeTypeValue' => $chrono->getCubeType()->value,
             'action' => $this->generateUrl('app_game_chrono'),
         ]);
 

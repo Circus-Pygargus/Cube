@@ -1,16 +1,16 @@
 #timer-circle {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 200px;
-    height: 200px;
-    border: 6px solid white;
-    border-radius: 50%;
-    background-size: 100% 200%;
-    background-image: linear-gradient(to top, #333 50%, green 50%);
-    background-position: 0 -100%;
-    transition: background-position 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  border: 6px solid white;
+  border-radius: 50%;
+  background-size: 100% 200%;
+  background-image: linear-gradient(to top, #333 50%, green 50%);
+  background-position: 0 -100%;
+  transition: background-position 0;
 
   &.filling {
     background-position: 0 0;
@@ -23,13 +23,13 @@
     height: 100%;
 
     span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 60px;
-    font-weight: bold;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 60px;
+      font-weight: bold;
     }
   }
 }

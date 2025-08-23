@@ -7,6 +7,7 @@ use App\Entity\Chrono;
 use App\Form\Type\ChronoType;
 use App\Form\Type\CubeFormType;
 use App\Repository\ScrambleMoveRepository;
+use App\Service\ChronosService;
 use App\Service\ScrambleMoveService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -20,14 +21,18 @@ use Symfony\Component\Routing\Attribute\Route;
 class GameController extends AbstractController
 {
     #[Route('/game', name: 'app_game')]
-    public function index(): Response
+    public function index(
+        ChronosService $ChronosService,
+    ): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $cubeTypeForm = $this->createForm(CubeFormType::class);
+        $chronosInfos = $ChronosService->getBestChronos();
 
         return $this->render('game/index.html.twig', [
             'cubeTypeForm' => $cubeTypeForm,
+            'chronosInfos' => $chronosInfos,
         ]);
     }
 

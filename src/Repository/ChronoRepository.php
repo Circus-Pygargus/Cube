@@ -3,17 +3,45 @@
 namespace App\Repository;
 
 use App\Entity\Chrono;
+use App\Enum\CubeType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\SecurityBundle\Security;
 
 /**
  * @extends ServiceEntityRepository<Chrono>
  */
 class ChronoRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(
+        ManagerRegistry $registry,        
+        private Security $security,
+    )
     {
         parent::__construct($registry, Chrono::class);
+    }
+
+    public function findSiteRecordByCubeType(CubeType $cubeType): ?Chrono
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.cubeType = :cubeType')
+            ->setParameter('cubeType', $cubeType->value)
+            ->orderBy('c.duration', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function findPersonalBestByCubeType(CubeType $cubeType): ?Chrono
+    {
+        return $this->createQuerybuilder('c')
+            ->andWhere('c.cubeType = :cubeType')
+            ->andWhere('c.user = :user')
+            ->setParameter('cubeType', $cubeType)
+            ->setParameter('user', $this->security->getUser())
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     //    /**

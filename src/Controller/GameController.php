@@ -123,6 +123,11 @@ class GameController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
+        if (!$request->isXmlHttpRequest()) {
+            $logger->error(`Route recordChrono : la requête n'était pas en Ajax, requête faite par ${$user}.`);
+            return new JsonResponse(['isOk' => false, 'message' => 'Requête non autorisée.'], 400);
+        }
+
         $chrono = new Chrono();
         $form = $this->createForm(ChronoType::class, $chrono, [
             'action' => $this->generateUrl('app_game_chrono_record'),
@@ -130,6 +135,7 @@ class GameController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @todo retourner un msg si le form n'est pas valide */
             try {
                 $chrono->setUser($this->getUser());
                 $em->persist($chrono);
@@ -137,10 +143,13 @@ class GameController extends AbstractController
             } catch (\Exception $e) {
                 $logger->error($e->getMessage());
                 $logger->debug($e->getTraceAsString());
+            return new JsonResponse(['isOk' => false, 'message' => 'Un problème est survenu !'], Response::HTTP_BAD_REQUEST);
             }
         }
 
-        return $this->render('game/chrono.html.twig', [
+        return new JsonResponse([
+            'isOk' => true,
+            'message' => 'Chrono enregistré !',
         ]);
     }
 }

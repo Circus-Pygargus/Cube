@@ -1,0 +1,4 @@
+Todos :
+_ chronosInfos : le contenu est géré dans la route /game
+    mettre sous option le fait d'afficher ou non les chronos Site Records
+    gestion faite par le back ou le front ?

@@ -93,7 +93,7 @@ class GameController extends AbstractController
             'type' => $cubeType,
         ]);
         $chronoForm = $this->createForm(ChronoType::class, $chrono, [
-            'action' => $this->generateUrl('app_game_chrono'),
+            'action' => $this->generateUrl('app_game_chrono_record'),
         ]);
 
         // Check if user is using a touch screen
@@ -113,7 +113,7 @@ class GameController extends AbstractController
         ]);
     }
 
-    #[Route('/game/chrono', name: 'app_game_chrono', methods: ['POST'])]
+    #[Route('/game/chrono/record', name: 'app_game_chrono_record', methods: ['POST'])]
     public function recordChrono(
         Request $request,
         ScrambleMoveRepository $scrambleMoveRepository,
@@ -125,7 +125,7 @@ class GameController extends AbstractController
 
         $chrono = new Chrono();
         $form = $this->createForm(ChronoType::class, $chrono, [
-            'action' => $this->generateUrl('app_game_chrono'),
+            'action' => $this->generateUrl('app_game_chrono_record'),
         ]);
         $form->handleRequest($request);
 

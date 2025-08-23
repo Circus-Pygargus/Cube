@@ -1,0 +1,14 @@
+{% block chronosInfos %}
+	<div id="chronos-infos">
+    {% for ci in chronosInfos %}
+        <div class="chronos-info">
+            <div class="cube-type collapsable-trigger">{{ ci.cubeType }}</div>
+            <div class="collapsable">
+                <div class="site-record">{{ ci.siteRecord }}</div>
+                <div class="personal-best">{{ ci.personalBest }}</div>
+                <div class="session-records" data-cube-type="{{ ci.cubeType }}"></div>
+            </div>
+        </div>
+    {% endfor %}
+	</div>
+{% endblock %}

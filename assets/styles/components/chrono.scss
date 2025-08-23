@@ -54,6 +54,8 @@
 #dual-press-hint {
   position: fixed;
   z-index: 2;
+  width: 100%;
+  text-align: center;
 
   #chrono-stop-hint {
     color: #ddd;

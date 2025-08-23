@@ -4,8 +4,9 @@
         <div class="chronos-info">
             <div class="cube-type collapsable-trigger">{{ ci.cubeType }}</div>
             <div class="collapsable">
-                <div class="site-record">{{ ci.siteRecord }}</div>
-                <div class="personal-best">{{ ci.personalBest }}</div>
+                {# @todo Créer un fonction twig pour afficher les chronos de façon plus lisible #}
+                <div class="site-record" data-value="{{ ci.siteRecord.duration ?? '' }}">Site record {{ ci.siteRecord.duration ?? '' }}</div>
+                <div class="personal-best" data-value="{{ ci.siteRecord.duration ?? '' }}">Personal best {{ ci.personalBest.duration ?? '' }}</div>
                 <div class="session-records" data-cube-type="{{ ci.cubeType }}"></div>
             </div>
         </div>

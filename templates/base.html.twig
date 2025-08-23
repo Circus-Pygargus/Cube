@@ -16,6 +16,10 @@
     <body>
         {% block body %}{% endblock %}
 
+        {% if chronosInfos is defined %}
+            {{ include('layout/game/_chronos-infos.html.twig', { 'chronosInfos': chronosInfos }) }}            
+        {% endif %}
+
         <div id="loader" class="hidden">
             <svg width="500" height="500" xmlns="http://www.w3/org/2000/svg">
                 <rect width="50" height="10" x="125" y="245" rx="20" ry="20" fill="orange">

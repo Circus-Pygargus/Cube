@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\CubeType\CubeType;
+use App\Enum\CubeType;
 use App\Repository\ScrambleMoveRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

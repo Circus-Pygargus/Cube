@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\CubeType\CubeType;
+use App\Enum\CubeType;
 use RobinIngelbrecht\TwistyPuzzleScrambler\RandomScramble;
 
 class ScramblerService

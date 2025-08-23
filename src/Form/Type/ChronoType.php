@@ -2,7 +2,7 @@
 
 namespace App\Form\Type;
 
-use App\CubeType\CubeType;
+use App\Enum\CubeType;
 use App\Entity\Chrono;
 use App\Entity\ScrambleMove;
 use App\Form\DataTransformer\StringToCubeTypeTransformer;

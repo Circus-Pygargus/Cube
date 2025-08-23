@@ -2,7 +2,7 @@
 
 namespace App\Form\DataTransformer;
 
-use App\CubeType\CubeType;
+use App\Enum\CubeType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 

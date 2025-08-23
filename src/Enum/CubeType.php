@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\CubeType;
+namespace App\Enum;
 
 enum CubeType: string
 {

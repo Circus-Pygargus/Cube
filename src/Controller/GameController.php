@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\CubeType\CubeType;
+use App\Enum\CubeType;
 use App\Entity\Chrono;
 use App\Form\Type\ChronoType;
 use App\Form\Type\CubeFormType;

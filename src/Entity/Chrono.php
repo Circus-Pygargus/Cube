@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\CubeType\CubeType;
+use App\Enum\CubeType;
 use App\Repository\ChronoRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;

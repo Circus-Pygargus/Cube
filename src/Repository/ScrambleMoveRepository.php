@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\CubeType\CubeType;
+use App\Enum\CubeType;
 use App\Entity\Chrono;
 use App\Entity\ScrambleMove;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

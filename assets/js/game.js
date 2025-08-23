@@ -1,3 +1,5 @@
+import './collapsable.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const gameInterfaceDiv = document.querySelector('#game-interface');
     const spinningLoader = document.querySelector('#loader');

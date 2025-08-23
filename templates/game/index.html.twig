@@ -6,12 +6,12 @@
 	<h1>Cube assistant</h1>
 
 	<div id="game-interface">
-		{% block gameInterface %}
-			{# This content will be replaced on fetch made on button#cube-scramble clic #}
+	{% block gameInterface %}
+		{# This content will be replaced on fetch made on button#cube-scramble clic #}
 
-			{{ form(cubeTypeForm) }}
-				<button id="cube-scramble">Obtenir un nouveau mélange</button>
-			{% endblock %}
+		{{ form(cubeTypeForm) }}
+		<button id="cube-scramble">Obtenir un nouveau mélange</button>
+	{% endblock %}
     </div>
     <button type="submit" id="chrono_submit" name="chrono[submit]">Enregistrer</button>
 {% endblock %}

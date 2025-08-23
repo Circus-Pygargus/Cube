@@ -52,9 +52,7 @@ class ChronoType extends AbstractType
             ])
             ->add('scrambleMove', HiddenType::class, [
             ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Enregistrer',
-            ])
+            // Submit button has been moved into /template/game/index.html.twig so I can apply js on it correctly
             ;
 
         $builder->get('cubeType')

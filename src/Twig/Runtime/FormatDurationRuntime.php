@@ -41,7 +41,7 @@ class FormatDurationRuntime implements RuntimeExtensionInterface
         $result .= $hours > 0 ? $hours . ':' : '';
         $result .= $hasHours
             ? sprintf('%02d', $minutes % 60) . ':'
-            : ($minutes > 0 ? $minutes % 60 : '');
+            : ($minutes > 0 ? $minutes % 60 . ':' : '');
         $result .= $hasMinutesOrHours
             ? sprintf('%02d', $seconds % 60) . '.'
             : ($seconds > 0 ? $seconds % 60 . '.' : '0.');

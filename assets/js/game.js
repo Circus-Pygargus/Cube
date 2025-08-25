@@ -4,6 +4,7 @@ import './record-chrono.js';
 document.addEventListener('DOMContentLoaded', () => {
     const gameInterfaceDiv = document.querySelector('#game-interface');
     const spinningLoader = document.querySelector('#loader');
+    const chronoSubmitBtn = document.querySelector('#chrono_submit');
 
     let isTouchScreen;
 
@@ -206,6 +207,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#readable-duration').innerHTML = formatChrono(duration);
         document.querySelector('#chrono-form-container').classList.remove('hidden');
         document.querySelector('#clock-container').classList.add('hidden');
+        chronoSubmitBtn.classList.remove('hidden');
+        chronoSubmitBtn.disabled = false;
     }
 
     function formatChrono(durationToFormat) {

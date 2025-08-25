@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Une erreur est survenue lors de la requête:', error);
             }
             spinningLoader.classList.add('hidden');
-            chronoSubmitBtn.disabled = false;
         });
     }
 });

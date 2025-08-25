@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (json.isOk === true) {
                     const msgDiv = document.querySelector('#record-msg');
                     msgDiv.innerHTML = json.message;
+                    chronoSubmitBtn.classList.add('hidden');
                 } else {
                     /** @todo afficher un message explicatif à l'utilisateur */
                     console.error('Erreur dans la réponse du serveur:', json.message);
@@ -49,4 +50,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
 

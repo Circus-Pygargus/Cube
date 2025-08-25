@@ -40,10 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     /** @todo afficher un message explicatif à l'utilisateur */
                     console.error('Erreur dans la réponse du serveur:', json.message);
+                    chronoSubmitBtn.disabled = false;
                 }
             } catch (error) {
                 /** @todo afficher un message explicatif à l'utilisateur */
                 console.error('Une erreur est survenue lors de la requête:', error);
+                chronoSubmitBtn.disabled = false;
             }
             spinningLoader.classList.add('hidden');
         });

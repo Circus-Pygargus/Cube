@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cubeScrambleBtn.addEventListener('click', async (event) => {
         if (isTouchScreen === undefined) {
             isTouchScreen = false;
-            document.querySelcetor('body').removeEventListener('touchstart', screenTouched);
+            document.querySelector('body').removeEventListener('touchstart', screenTouched);
         }
 
         event.preventDefault();

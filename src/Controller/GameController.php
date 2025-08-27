@@ -22,13 +22,13 @@ class GameController extends AbstractController
 {
     #[Route('/game', name: 'app_game')]
     public function index(
-        ChronosService $ChronosService,
+        ChronosService $chronosService,
     ): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $cubeTypeForm = $this->createForm(CubeFormType::class);
-        $chronosInfos = $ChronosService->getBestChronos();
+        $chronosInfos = $chronosService->getBestChronos();
 
         return $this->render('game/index.html.twig', [
             'cubeTypeForm' => $cubeTypeForm,

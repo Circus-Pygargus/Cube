@@ -37,6 +37,7 @@ class ChronoRepository extends ServiceEntityRepository
         return $this->createQuerybuilder('c')
             ->andWhere('c.cubeType = :cubeType')
             ->andWhere('c.user = :user')
+            ->orderBy('c.duration', 'ASC')
             ->setParameter('cubeType', $cubeType)
             ->setParameter('user', $this->security->getUser())
             ->setMaxResults(1)

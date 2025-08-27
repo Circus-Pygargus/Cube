@@ -17,13 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let interval;
     let duration;
 
-    gameInterfaceDiv.addEventListener('touchstart', screenTouched);
-
+    document.querySelcetor('body').addEventListener('touchstart', screenTouched);
     // Events delegation management
     gameInterfaceDiv.addEventListener('click', async (event) => {
         if (isTouchScreen === undefined) {
             isTouchScreen = false;
-            gameInterfaceDiv.removeEventListener('touchstart', screenTouched);
+            document.querySelcetor('body').removeEventListener('touchstart', screenTouched);
         }
 
         if (event.target.matches('#cube-scramble')) {

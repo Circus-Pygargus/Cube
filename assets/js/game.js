@@ -2,6 +2,7 @@ import './collapsable.js';
 import './record-chrono.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    const cubeScrambleBtn = document.querySelector('#cube-scramble');
     const gameInterfaceDiv = document.querySelector('#game-interface');
     const spinningLoader = document.querySelector('#loader');
     const chronoSubmitBtn = document.querySelector('#chrono_submit');
@@ -17,69 +18,68 @@ document.addEventListener('DOMContentLoaded', () => {
     let interval;
     let duration;
 
-    document.querySelcetor('body').addEventListener('touchstart', screenTouched);
-    // Events delegation management
-    gameInterfaceDiv.addEventListener('click', async (event) => {
+    document.querySelector('body').addEventListener('touchstart', screenTouched);
+
+    cubeScrambleBtn.addEventListener('click', async (event) => {
         if (isTouchScreen === undefined) {
             isTouchScreen = false;
             document.querySelcetor('body').removeEventListener('touchstart', screenTouched);
         }
 
-        if (event.target.matches('#cube-scramble')) {
-            event.preventDefault();
+        event.preventDefault();
 
-            const cubeForm = document.querySelector('#cube_form');
-            const cubeFormTypeSelect = cubeForm.querySelector('select#cube_form_type');
-            const selectedCubeType = cubeFormTypeSelect.value;
+        const cubeForm = document.querySelector('#cube_form');
+        const cubeFormTypeSelect = cubeForm.querySelector('select#cube_form_type');
+        const selectedCubeType = cubeFormTypeSelect.value;
 
-            // Absolutely not needed !
-            if (isTouchScreen) {
-                const isTouchScreenSelect = cubeForm.querySelector('input#cube_form_isUsingTouchScreen');
-                isTouchScreenSelect.checked = true;
-            }
+        // Absolutely not needed !
+        if (isTouchScreen) {
+            const isTouchScreenSelect = cubeForm.querySelector('input#cube_form_isUsingTouchScreen');
+            isTouchScreenSelect.checked = true;
+        }
 
-            if (selectedCubeType === '') {
-                /** @todo Afficher un message explicatif à l'utilisateur */
-                return;
-            }
+        if (selectedCubeType === '') {
+            /** @todo Afficher un message explicatif à l'utilisateur */
+            return;
+        }
 
-            const token = cubeForm.querySelector('input[name="cube_form[_token]"]').value;
+        const token = cubeForm.querySelector('input[name="cube_form[_token]"]').value;
 
-            const data = {
-                'cube_form': {
-                    'type': selectedCubeType,
+        const data = {
+            'cube_form': {
+                'type': selectedCubeType,
+            },
+            'isUsingTouchScreen': isTouchScreen,
+            '_token': token
+        };
+
+        try {
+            spinningLoader.classList.remove('hidden');
+            const response = await fetch('/game/scramble', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
                 },
-                'isUsingTouchScreen': isTouchScreen,
-                '_token': token
-            };
+                body: JSON.stringify(data)
+            });
 
-            try {
-                spinningLoader.classList.remove('hidden');
-                const response = await fetch('/game/scramble', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const json = await response.json();
-                if (json.isOk === true) {
-                    gameInterfaceDiv.innerHTML = json.render;
-                    canUseChrono = true;
-                    spinningLoader.classList.add('hidden');
-                } else {
-                    /** @todo afficher un message explicatif à l'utilisateur */
-                    console.error('Erreur dans la réponse du serveur:', json.message);
-                }
-            } catch (error) {
-                /** @todo afficher un message explicatif à l'utilisateur */
-                console.error('Une erreur est survenue lors de la requête:', error);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
+
+            const json = await response.json();
+            console.log(json);
+            if (json.isOk === true) {
+                gameInterfaceDiv.innerHTML = json.render;
+                canUseChrono = true;
+                spinningLoader.classList.add('hidden');
+            } else {
+                /** @todo afficher un message explicatif à l'utilisateur */
+                console.error('Erreur dans la réponse du serveur:', json.message);
+            }
+        } catch (error) {
+            /** @todo afficher un message explicatif à l'utilisateur */
+            console.error('Une erreur est survenue lors de la requête:', error);
         }
     });
 

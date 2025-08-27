@@ -16,11 +16,9 @@
     <body>
         <h1>Cube assistant</h1>
         
-        {% block body %}{% endblock %}
-
-        {% if chronosInfos is defined %}
-            {{ include('layout/game/_chronos-infos.html.twig', { 'chronosInfos': chronosInfos }) }}            
-        {% endif %}
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
 
         <div id="loader" class="hidden">
             <svg width="500" height="500" xmlns="http://www.w3/org/2000/svg">

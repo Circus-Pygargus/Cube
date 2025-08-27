@@ -54,13 +54,15 @@ class GameController extends AbstractController
             return new JsonResponse(['isOk' => false, 'message' => 'Invalid data'], Response::HTTP_BAD_REQUEST);
         }
 
-        $wantedCubeType = $content['cube_form']['type'];
         $csrfToken = $content['_token'];
 
         // Check CSRF Token
         if (!$this->isCsrfTokenValid('cube_form', $csrfToken)) {
             return new JsonResponse(['isOk' => false, 'message' => 'Invalid CSRF token'], Response::HTTP_BAD_REQUEST);
         }
+
+        $wantedCubeType = $content['cube_form']['type'];        
+        $isUsingTouchScreen = $content['isUsingTouchScreen'] ?? false;
 
         try {
             // Convert wanted cube type (string) to a CubeType instance
@@ -97,7 +99,6 @@ class GameController extends AbstractController
         ]);
 
         // Check if user is using a touch screen
-        $isUsingTouchScreen = $content['isUsingTouchScreen'] ?? false;
 
         // Render partial HTML template
         $gameInterfaceView = $this->renderView('layout/game/_game-interface.html.twig', [

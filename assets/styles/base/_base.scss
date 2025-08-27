@@ -6,3 +6,18 @@ body {
 .hidden {
     display: none !important;
 }
+
+.container {
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+}

@@ -30,9 +30,10 @@
                 border-top: 1px solid #eee;
             }
 
-            .site-record {}
-
-            .personal-best {}
+            .site-record,
+            .personal-best {
+                margin-left: 2rem;
+            }
 
             .session-records {
 

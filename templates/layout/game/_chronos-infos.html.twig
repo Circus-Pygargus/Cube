@@ -4,8 +4,14 @@
         <div class="chronos-info">
             <div class="cube-type collapsable-trigger">{{ ci.cubeType }}</div>
             <div class="collapsable">
-                <div class="site-record" data-value="{{ ci.siteRecord.duration ?? '' }}">Site record  {{ ci.siteRecord ? format_duration(ci.siteRecord.duration) : '' }}</div>
-                <div class="personal-best" data-value="{{ ci.siteRecord.duration ?? '' }}">Personal best {{ ci.personalBest ? format_duration(ci.personalBest.duration) : '' }}</div>
+                <div class="row">
+                    <span>Site record </span>
+                    <div class="site-record" data-value="{{ ci.siteRecord.duration ?? '' }}">{{ ci.siteRecord ? format_duration(ci.siteRecord.duration) : '' }}</div>
+                </div>
+                <div class="row">
+                    <span>Personal best </span>
+                    <div class="personal-best" data-value="{{ ci.siteRecord.duration ?? '' }}">{{ ci.personalBest ? format_duration(ci.personalBest.duration) : '' }}</div>
+                </div>
                 <div class="session-records" data-cube-type="{{ ci.cubeType }}"></div>
             </div>
         </div>

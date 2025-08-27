@@ -14,8 +14,8 @@
 		{% block gameInterface %}
 			{# This content will be filled on fetch made from button#cube-scramble clic #}
 		{% endblock %}
-		<button type="submit" id="chrono_submit" name="chrono[submit]" class="btn chrono-submit_btn hidden" disabled>Enregistrer</button>
 	</div>
+	<button type="submit" id="chrono_submit" name="chrono[submit]" class="btn chrono-submit_btn hidden" disabled>Enregistrer</button>
 	<div class="col col-chronos-infos">
 		{{ include('layout/game/_chronos-infos.html.twig', { 'chronosInfos': chronosInfos }) }}
 	</div>

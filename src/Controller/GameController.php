@@ -100,16 +100,22 @@ class GameController extends AbstractController
         $isUsingTouchScreen = $content['isUsingTouchScreen'] ?? false;
 
         // Render partial HTML template
-        $view = $this->renderView('layout/game/_game-interface.html.twig', [
-            'cubeTypeForm' => $cubeTypeForm,
+        $gameInterfaceView = $this->renderView('layout/game/_game-interface.html.twig', [
             'scrambleMoves' => $scrambleMove->getMoves(),
             'chronoForm' => $chronoForm,
             'isUsingTouchScreen' => $isUsingTouchScreen,
         ]);
 
+        $cubeTypeFormView = $this->renderView('layout/game/_cube-type-form.html.twig', [
+            'cubeTypeForm' => $cubeTypeForm,
+        ]);
+        
         return new JsonResponse([
             'isOk' => true,
-            'render' => $view,
+            'render' => [
+                'gameInterface' => $gameInterfaceView,
+                'cubeTypeForm' => $cubeTypeFormView,
+            ],
         ]);
     }
 

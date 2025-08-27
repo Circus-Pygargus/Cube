@@ -3,6 +3,7 @@ import './record-chrono.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const cubeScrambleBtn = document.querySelector('#cube-scramble');
+    const cubeScrambleForm = document.querySelector('#cube-scramble_form');
     const gameInterfaceDiv = document.querySelector('#game-interface');
     const spinningLoader = document.querySelector('#loader');
     const chronoSubmitBtn = document.querySelector('#chrono_submit');
@@ -68,9 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const json = await response.json();
-            console.log(json);
             if (json.isOk === true) {
-                gameInterfaceDiv.innerHTML = json.render;
+                cubeScrambleForm.innerHTML = json.render.cubeTypeForm;
+                gameInterfaceDiv.innerHTML = json.render.gameInterface;
                 canUseChrono = true;
                 spinningLoader.classList.add('hidden');
             } else {

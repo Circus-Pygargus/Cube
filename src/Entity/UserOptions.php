@@ -18,9 +18,9 @@ class UserOptions
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-
     #[ORM\Column(type: Types::BOOLEAN, nullable: false, options: ['default' => false])]
     private ?bool $displaySiteRecords = null;
+
     public function getId(): ?int
     {
         return $this->id;

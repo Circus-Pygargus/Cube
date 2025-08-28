@@ -4,10 +4,12 @@
         <div class="chronos-info">
             <div class="cube-type collapsable-trigger">{{ ci.cubeType }}</div>
             <div class="collapsable">
+                {% if ci.siteRecord is defined %}
                 <div class="row">
                     <span>Site record </span>
                     <div class="site-record" data-value="{{ ci.siteRecord.duration ?? '' }}">{{ ci.siteRecord ? format_duration(ci.siteRecord.duration) : '' }}</div>
                 </div>
+                {% endif %}
                 <div class="row">
                     <span>Personal best </span>
                     <div class="personal-best" data-value="{{ ci.siteRecord.duration ?? '' }}">{{ ci.personalBest ? format_duration(ci.personalBest.duration) : '' }}</div>

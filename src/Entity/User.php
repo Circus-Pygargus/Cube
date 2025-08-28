@@ -61,6 +61,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Chrono::class, mappedBy: 'user')]
     private Collection $chronos;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?UserOptions $userOptions = null;
+
     public function __construct()
     {
         $this->chronos = new ArrayCollection();
@@ -189,6 +192,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $chrono->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUserOptions(): ?UserOptions
+    {
+        return $this->userOptions;
+    }
+
+    public function setUserOptions(UserOptions $userOptions): static
+    {
+        // set the owning side of the relation if necessary
+        if ($userOptions->getUser() !== $this) {
+            $userOptions->setUser($this);
+        }
+
+        $this->userOptions = $userOptions;
 
         return $this;
     }

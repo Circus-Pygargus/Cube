@@ -4,7 +4,16 @@ _ chronosInfos : le contenu est géré dans la route /game
     gestion faite par le back ou le front ?
 
 
+Idées :
+_ ajouter en option : le joueur sélectionne les cubeType qu'il possède,
+    le select de cubeType n'affiche que ceux disponibles pour lui
+    chronosInfos n'affiche que les cubeTypes disponibles pour lui
+    Bien lui spécifier qu'il n'aura plus les infos 
+        ou trouver une autre soluce pour y avoir accès dans la page des stats par exemple
+
+
 Bugs :
 _ on peut utiliser une seule touche crtl pour lancer le chrono : 
     il suffit de l'enfoncer 2 fois
     la 3eme stop le chrono !
+    - zarb ce soir ça le fait plus ... 29/08/2025

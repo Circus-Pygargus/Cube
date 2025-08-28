@@ -18,7 +18,6 @@ class UserOptionsType extends AbstractType
                 'label' => 'Afficher les meilleurs chronos du site',
                 'mapped' => true,
                 'required' => false,
-                'data' => false,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',

@@ -3,6 +3,16 @@ _ chronosInfos : le contenu est géré dans la route /game
     mettre sous option le fait d'afficher ou non les chronos Site Records
     gestion faite par le back ou le front ?
 
+_ UX user menu : garder la version actuelle pour écrans tactiles (va falloir le coder)
+    et ajouter ceci pour version clavier-souris :
+        un hover sur le svg affiche les liens :
+            -> on lance un listener de sortie de hover sur le menu complet et on ajoute : ouvertue du menu
+        le menu reste affiché aussi longtemps qu'on le survole
+        si on en sors le listener de sortie de hover se déclenche
+            -> on cache le menu et on supprime le listener en cours
+    comme ça le menu s'ouvre au survol, plus besoin de clic en trop 
+
+
 
 Idées :
 _ ajouter en option : le joueur sélectionne les cubeType qu'il possède,

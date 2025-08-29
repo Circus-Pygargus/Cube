@@ -9,10 +9,16 @@
 }
 
 a,
-a:hover,
-a:active,
 a:visited {
     color: inherit;
+}
+
+a:hover {
+    color: #ff8800;
+}
+
+a:active {
+    color: whitesmoke;
 }
 
 body {

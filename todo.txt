@@ -10,6 +10,9 @@ _ ajouter en option : le joueur sélectionne les cubeType qu'il possède,
     chronosInfos n'affiche que les cubeTypes disponibles pour lui
     Bien lui spécifier qu'il n'aura plus les infos 
         ou trouver une autre soluce pour y avoir accès dans la page des stats par exemple
+_ donner la possibilité de jouer le mélange d'un autre joueur ?
+    par exemple le record du site (depuis la page des stats ou directement avec un click sur chronosInfos ?)
+        cela implique certainement une refonte de la gestion du block game-interface ...
 
 
 Bugs :

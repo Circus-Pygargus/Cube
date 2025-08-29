@@ -1,12 +1,17 @@
-header {
+.header {
+    position: relative;
+    width: 100%;
+    padding: 3rem 0;
 
     h1 {
-        width: 100%;
         text-align: center;
     }
 
     #user-menu {
-        margin-top: 31px;
+        position: absolute;
+        top: 3.7rem;
+        right: 1rem;
+        width: 8rem;
 
         .collapsable-trigger {
             text-align: center;

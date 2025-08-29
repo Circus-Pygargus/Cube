@@ -200,6 +200,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function stopChrono() {
+        isLeftButtonPressed = false;
+        isRightButtonPressed = false;
         document.querySelector('#chrono-stop-hint').classList.add('hidden');
         clearInterval(interval);
         isChronoRunning = false;

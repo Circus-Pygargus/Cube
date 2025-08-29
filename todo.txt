@@ -13,10 +13,6 @@ _ ajouter en option : le joueur sélectionne les cubeType qu'il possède,
 
 
 Bugs :
-_ on peut utiliser une seule touche crtl pour lancer le chrono : 
-    il suffit de l'enfoncer 2 fois
-    la 3eme stop le chrono !
-    - zarb ce soir ça le fait plus ... 29/08/2025
 
 _ bouton de demande de mélange ne fonctionne pas systématiquement
     idem pour les collapsable triggers de chronosInfos

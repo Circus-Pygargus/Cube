@@ -18,9 +18,6 @@ class CubeFormType extends AbstractType
                 'placeholder' => 'Choisis',
                 'class' => CubeType::class,
                 'choice_label' => fn (CubeType $choice) => $choice->value,
-                'attr' => [
-                    'class' => 'custom-select'
-                ]
             ])
             ->add('isUsingTouchScreen', CheckboxType::class, [
                 'mapped' => false, // Ce champ n'est pas lié à l'entité

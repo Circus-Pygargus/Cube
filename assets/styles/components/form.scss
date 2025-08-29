@@ -1,0 +1,17 @@
+form {
+
+    label {
+        display: block;
+        margin-bottom: .5rem;
+    }
+
+    .custom-select {
+        display: block;
+        margin: 0 auto;
+        padding: .2rem .2rem;
+        text-align: center;
+        color: dimgrey;
+        border-radius: 12px;
+        outline-color: #ff8800;
+    }
+}

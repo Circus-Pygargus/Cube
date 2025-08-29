@@ -14,8 +14,10 @@
         {% endblock %}
     </head>
     <body>
-        <h1>Cube assistant</h1>
-        
+        <header>
+            {{ include('/layout/header.html.twig') }}
+        </header>
+
         <div class="container">
             {% block body %}{% endblock %}
         </div>

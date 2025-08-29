@@ -6,6 +6,22 @@
     }
 }
 
+.col-game-interface {
+    padding: 0 1rem;
+
+    .game-interface {
+
+        .scramble-moves {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: .5rem;
+            justify-content: center;
+        }
+    }
+}
+
 .col-chronos-infos {
-    padding-right: 1rem;
+    padding: 0 1rem;
 }

@@ -26,4 +26,3 @@ _ donner la possibilité de jouer le mélange d'un autre joueur ?
 
 
 Bugs :
-_ le bouton d'enregistrement de chrono reste visible si on demande un nouveau mélange sans enregistrer

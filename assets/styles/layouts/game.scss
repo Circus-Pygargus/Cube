@@ -31,6 +31,26 @@
                 color: #ddd;
             }
         }
+
+        #chrono-form-container {
+
+            #readable-duration-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 164px;
+                margin-bottom: 1rem;
+            }
+
+            #chrono_comment {
+                width: 148px;
+                padding: .2rem .5rem;
+            }
+        }
+    }
+
+    #chrono_submit {
+        width: 146px;
     }
 }
 

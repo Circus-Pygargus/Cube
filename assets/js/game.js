@@ -93,6 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (event.code === 'ControlRight' && isRightButtonPressed === false) {
                 isRightButtonPressed = true;
                 checkForBothBtns();
+            } else if (event.key === 'Enter') { // Using event.key so it works with both enter buttons
+                if (isChronoRunning) {
+                    event.preventDefault();
+                }
             }
         }
     });

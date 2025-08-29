@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const cubeType = document.querySelector('#chrono_cubeType').value;
             const actualRecordsDiv = document.querySelector(`.session-records[data-cube-type="${cubeType}"]`);
 
+            if (!actualRecordsDiv.hasChildNodes()) {
+                actualRecordsDiv.innerHTML = 'Session';
+            }
+
             const newChronoDiv = document.createElement('DIV');
             newChronoDiv.classList.add('session-record');
             newChronoDiv.dataset.value = document.querySelector('#chrono_duration').value;

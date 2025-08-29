@@ -21,6 +21,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('collapsable', './assets/js/collapsable.js')
     .addEntry('game', './assets/js/game.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
@@ -77,6 +78,6 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
-;
+    ;
 
 module.exports = Encore.getWebpackConfig();

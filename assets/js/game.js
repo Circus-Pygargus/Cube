@@ -1,4 +1,3 @@
-import './collapsable.js';
 import './record-chrono.js';
 
 document.addEventListener('DOMContentLoaded', () => {

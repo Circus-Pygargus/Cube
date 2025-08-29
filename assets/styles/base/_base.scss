@@ -21,3 +21,10 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.collapsable {
+
+    &.collapse {
+        display: none;
+    }
+}

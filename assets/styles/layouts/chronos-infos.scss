@@ -20,10 +20,6 @@
 
         .collapsable {
 
-            &.collapse {
-                display: none;
-            }
-
             /* Première génération d'enfants (pour ne pas l'écrire 3 fois) */
             >* {
                 padding: 1px 16px;

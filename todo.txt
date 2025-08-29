@@ -13,6 +13,7 @@ _ ajouter en option : le joueur sélectionne les cubeType qu'il possède,
 
 
 Bugs :
+_ lorsque le timer est lancé on peut l'arrêter en appuyant sur la touche Entrée
 
 _ bouton de demande de mélange ne fonctionne pas systématiquement
     idem pour les collapsable triggers de chronosInfos

@@ -1,12 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const collapsables = document.querySelectorAll('.collapsable');
-
-    if (collapsables) {
-        const collapsableTriggers = document.querySelectorAll('.collapsable-trigger');
-        Array.from(collapsableTriggers).forEach(trigger => {
-            trigger.addEventListener('click', (event) => {
-                event.target.nextElementSibling.classList.toggle('collapse');
-            });
-        });
-    }
+    document.addEventListener('click', (event) => {
+        // using closest() instead of matches() because of svg in #user-menu
+        const trigger = event.target.closest('.collapsable-trigger');
+        if (trigger) {
+            trigger.nextElementSibling.classList.toggle('collapse');
+        }
+    });
 });

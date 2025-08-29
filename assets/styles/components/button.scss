@@ -1,0 +1,46 @@
+.btn {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 1rem 0;
+    padding: .5rem;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 15px;
+
+    &.btn-submit {
+        background-color: inherit;
+        border-color: whitesmoke;
+        transition: all .5s;
+
+        &:hover {
+            color: #FF8800;
+            background-color: whitesmoke;
+            border-color: whitesmoke;
+        }
+
+        &:active {
+            color: whitesmoke;
+            background-color: #555555;
+            border-color: whitesmoke;
+        }
+    }
+
+    // &.btn-confirm {
+    //     color: forestgreen;
+
+    //     &:hover {
+    //         color: forestgreen;
+    //         border-color: forestgreen;
+    //     }
+    // }
+
+    // &.btn-cancel {
+    //     color: darkred;
+
+    //     &:hover {
+    //         color: darkred;
+    //         border-color: darkred;
+    //     }
+    // }
+}

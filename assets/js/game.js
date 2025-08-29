@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const cubeFormTypeSelect = cubeForm.querySelector('select#cube_form_type');
             const selectedCubeType = cubeFormTypeSelect.value;
             chronoSubmitBtn = document.querySelector('#chrono_submit');
+            chronoSubmitBtn.classList.add('hidden');
+            chronoSubmitBtn.disabled = true;
 
             // Absolutely not needed !
             if (isTouchScreen) {

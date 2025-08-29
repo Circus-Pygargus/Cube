@@ -1,11 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     const spinningLoader = document.querySelector('#loader');
 
-    const chronoSubmitBtn = document.querySelector('#chrono_submit');
-    if (chronoSubmitBtn) {
-        chronoSubmitBtn.addEventListener('click', async (event) => {
+    let chronoSubmitBtn;
+    document.addEventListener('click', async (event) => {
+        if (event.target.matches('#chrono_submit')) {
+            chronoSubmitBtn = document.querySelector('#chrono_submit');
             chronoSubmitBtn.disabled = true;
+
             event.preventDefault();
+
             const cubeType = document.querySelector('#chrono_cubeType').value;
             const actualRecordsDiv = document.querySelector(`.session-records[data-cube-type="${cubeType}"]`);
 
@@ -14,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             newChronoDiv.dataset.value = document.querySelector('#chrono_duration').value;
             newChronoDiv.innerHTML = document.querySelector('#readable-duration').innerHTML;
             actualRecordsDiv.appendChild(newChronoDiv);
+
 
             const chronoForm = document.querySelector('form[name="chrono"]');
             const formData = new FormData(chronoForm);
@@ -48,8 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 chronoSubmitBtn.disabled = false;
             }
             spinningLoader.classList.add('hidden');
-        });
-    }
+        }
+    });
 });
 
 

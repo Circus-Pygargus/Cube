@@ -1,0 +1,18 @@
+.col-cube-scramble {
+    padding: 0 1rem;
+
+    #cube-scramble_form {
+
+        label {
+            display: block;
+        }
+
+        select#cube_form_type {
+            margin-left: 2rem;
+        }
+    }
+
+    button#cube-scramble {
+        max-width: 5rem;
+    }
+}

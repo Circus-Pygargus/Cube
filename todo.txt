@@ -9,7 +9,6 @@ _ UX user menu : garder la version actuelle pour écrans tactiles (va falloir le
     comme ça le menu s'ouvre au survol, plus besoin de clic en trop 
 
 
-
 Idées :
 _ ajouter en option : le joueur sélectionne les cubeType qu'il possède,
     le select de cubeType n'affiche que ceux disponibles pour lui
@@ -19,6 +18,13 @@ _ ajouter en option : le joueur sélectionne les cubeType qu'il possède,
 _ donner la possibilité de jouer le mélange d'un autre joueur ?
     par exemple le record du site (depuis la page des stats ou directement avec un click sur chronosInfos ?)
         cela implique certainement une refonte de la gestion du block game-interface ...
+_ chronos-infos : ajouter l'affichage de la moyenne de la session ?
+_ ajouter un mode compétition :
+    il faut résoudre 5 cubes,
+    le meilleur et le pire temps sont retirés,
+    on fait la moyenne des 3 restants
+    => il faudrait enregistrer cette moyenne en bdd pour la page des stats
+
 
 
 Bugs :

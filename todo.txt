@@ -22,3 +22,6 @@ _ donner la possibilité de jouer le mélange d'un autre joueur ?
 
 
 Bugs :
+_ après avoir arrêté le chrono,
+    si on relance et que l'on appuye sur les 2 boutons en même temps :
+    le fond du rond est déjà rempli

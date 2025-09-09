@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 actualRecordsDiv.innerHTML = 'Session';
             }
 
-            const newChronoValue = document.querySelector('#chrono_duration').value;
+            const newChronoValue = parseInt(document.querySelector('#chrono_duration').value);
             const newChronoDiv = document.createElement('DIV');
             newChronoDiv.classList.add('session-record');
             newChronoDiv.dataset.value = newChronoValue;
@@ -26,24 +26,24 @@ document.addEventListener('DOMContentLoaded', () => {
             // apply whitish color to old records if beaten
             const siteRecordDiv = actualRecordsDiv.parentElement.querySelector('.site-record');
             const personalBestDiv = actualRecordsDiv.parentElement.querySelector('.personal-best');
-            if (parseInt(newChronoValue) < siteRecordDiv.dataset.value) {
+            if (newChronoValue < siteRecordDiv.dataset.value) {
                 siteRecordDiv.classList.add('whitish');
             }
-            if (parseInt(newChronoValue) < personalBestDiv.dataset.value) {
+            if (newChronoValue < personalBestDiv.dataset.value) {
                 personalBestDiv.classList.add('whitish');
             }
 
-            // let bestRecDiv, worstRecDiv;
-            // console.log(bestRecDiv);
-
-            // Array.from(actualRecordsDiv).sort(function (a, b) { return parseInt(a.getAttribute('data-value'), 10) - parseInt(b.getAttribute('data-value'), 10); })
-            // console.log(actualRecordsDiv);
-            // Array.from(actualRecordsDiv).forEach(recordDiv => {
-            //     // if ()
-            // });
-
-            /** @Todo si plus de 2 chronos de session (même cubeType) ajout css class green au meileur */
-            /** @Todo si plus de 3 chronos de session (même cubeType) ajout css class red au pire */
+            // Apply green or red color to best and worst session chronos if enough chronos
+            const recordsDivs = Array.from(actualRecordsDiv.children).sort(function (a, b) { return parseInt(a.getAttribute('data-value'), 10) - parseInt(b.getAttribute('data-value'), 10); })
+            recordsDivs.forEach(recordDiv => {
+                recordDiv.classList.remove('green', 'red');
+            });
+            if (recordsDivs.length >= 3) {
+                recordsDivs[0].classList.add('green');
+                recordsDivs[recordsDivs.length - 1].classList.add('red');
+            } else if (recordsDivs.length >= 2) {
+                recordsDivs[0].classList.add('green');
+            }
 
             const chronoForm = document.querySelector('form[name="chrono"]');
             const formData = new FormData(chronoForm);

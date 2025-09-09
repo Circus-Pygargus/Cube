@@ -17,19 +17,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const newChronoValue = parseInt(document.querySelector('#chrono_duration').value);
+            const newreadableChrono = document.querySelector('#readable-duration').innerHTML;
             const newChronoDiv = document.createElement('DIV');
             newChronoDiv.classList.add('session-record');
             newChronoDiv.dataset.value = newChronoValue;
-            newChronoDiv.innerHTML = document.querySelector('#readable-duration').innerHTML;
+            newChronoDiv.innerHTML = newreadableChrono;
             actualRecordsDiv.appendChild(newChronoDiv);
 
             // apply whitish color to old records if beaten
             const siteRecordDiv = actualRecordsDiv.parentElement.querySelector('.site-record');
             const personalBestDiv = actualRecordsDiv.parentElement.querySelector('.personal-best');
             if (newChronoValue < siteRecordDiv.dataset.value) {
+                siteRecordDiv.dataset.value = newChronoValue;
+                siteRecordDiv.innerHTML = newreadableChrono;
                 siteRecordDiv.classList.add('whitish');
             }
             if (newChronoValue < personalBestDiv.dataset.value) {
+                personalBestDiv.dataset.value = newChronoValue;
+                personalBestDiv.innerHTML = newreadableChrono;
                 personalBestDiv.classList.add('whitish');
             }
 

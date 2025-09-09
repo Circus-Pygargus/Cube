@@ -16,13 +16,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 actualRecordsDiv.innerHTML = 'Session';
             }
 
+            const newChronoValue = document.querySelector('#chrono_duration').value;
             const newChronoDiv = document.createElement('DIV');
             newChronoDiv.classList.add('session-record');
-            newChronoDiv.dataset.value = document.querySelector('#chrono_duration').value;
+            newChronoDiv.dataset.value = newChronoValue;
             newChronoDiv.innerHTML = document.querySelector('#readable-duration').innerHTML;
             actualRecordsDiv.appendChild(newChronoDiv);
 
-            /** @Todo Vérifier si le nouveau chrono est meilleur que le siteRecord et le personalBest (début de réfexion ci-dessous) */
+            // apply whitish color to old records if beaten
+            const siteRecordDiv = actualRecordsDiv.parentElement.querySelector('.site-record');
+            const personalBestDiv = actualRecordsDiv.parentElement.querySelector('.personal-best');
+            if (parseInt(newChronoValue) < siteRecordDiv.dataset.value) {
+                siteRecordDiv.classList.add('whitish');
+            }
+            if (parseInt(newChronoValue) < personalBestDiv.dataset.value) {
+                personalBestDiv.classList.add('whitish');
+            }
+
             // let bestRecDiv, worstRecDiv;
             // console.log(bestRecDiv);
 

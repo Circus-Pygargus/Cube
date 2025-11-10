@@ -45,6 +45,34 @@ class ChronoRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function findPersonalBestTimesByYears(CubeType $cubeType): array
+    {
+        $results = $this->createQueryBuilder('c')
+            ->select('YEAR(c.createdAt) AS year')
+            ->addSelect('MONTH(c.createdAt) AS month')
+            ->addSelect('COUNT(c.id) AS nbChronos')
+            ->addSelect('MIN(c.duration) AS bestTime')
+
+            ->andWhere('c.cubeType = :cubeType')
+            ->andWhere('c.user = :user')
+
+            ->groupBy('year, month')
+            ->orderBy('year', 'ASC')
+            ->orderBy('month', 'ASC')
+
+            ->setParameter('cubeType', $cubeType->value)
+            ->setParameter('user', $this->security->getUser())
+            ->getQuery()
+            ->getResult();
+
+        $return = [];
+        foreach ($results as $row) {
+            $return[$row['year']][] = $row;
+        }
+
+        return $return;
+    }
+
     //    /**
     //     * @return Chrono[] Returns an array of Chrono objects
     //     */

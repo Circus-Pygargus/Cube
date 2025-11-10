@@ -10,6 +10,9 @@ _ UX user menu : garder la version actuelle pour écrans tactiles (va falloir le
 
 
 Idées :
+_ Chronos Infos : par défaut, les lignes site record et personal best ne sont pas visible si pas de chrono enregistré
+    mieux encore : si pas d'infos pour un cube, 
+        ne pas le déplier en ajoutant .collapse 
 _ ajouter en option : le joueur sélectionne les cubeType qu'il possède,
     le select de cubeType n'affiche que ceux disponibles pour lui
     chronosInfos n'affiche que les cubeTypes disponibles pour lui
@@ -24,10 +27,16 @@ _ ajouter un mode compétition :
     le meilleur et le pire temps sont retirés,
     on fait la moyenne des 3 restants
     => il faudrait enregistrer cette moyenne en bdd pour la page des stats
+        il faudrait même enregistrer les 5 chronos ...
+_ ajouter un mode de jeu : selectionner plusieurs types de cube pour obtenir leur mélanges,
+    on lance un seul chrono pour la résolution du groupe
 
 
 
 Bugs :
+_ chronosInfos : 
+    selon le nombre de cubeInfo fermés, la bordure sous personalBest est visible et trop proche du bord inférieur.
+        et lorsqu'elle n'est pas visible, l'espace sous "Personal best" est trop petit.
 _ après avoir arrêté le chrono,
     si on relance et que l'on appuye sur les 2 boutons en même temps :
     le fond du rond est déjà rempli

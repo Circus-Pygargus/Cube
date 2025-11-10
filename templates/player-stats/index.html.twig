@@ -3,6 +3,16 @@
 {% block title %}Cube{% endblock %}
 
 {% block body %}
+    <div>
+    {% for year, months in chronos %}
+        <div>{{ year }}</div>
+        {% for month in months %}
+            <div>{{ month_name(month.month) }}</div>
+            <div>{{ month.nbChronos }}</div>
+            <div>{{ format_duration(month.bestTime) }}</div>
+        {% endfor %}
+    {% endfor %}
+    </div>
 {% endblock %}
 
 {% block javascripts %}

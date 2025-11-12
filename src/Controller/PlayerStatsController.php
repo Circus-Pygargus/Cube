@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Requirement\EnumRequirement;
 
 class PlayerStatsController extends AbstractController
 {
-    #[Route('/user-stats/{cubeType}', name: 'app_user_stats')]
+    #[Route('/user-stats/{cubeType}', name: 'app_user_stats', requirements: ['cubeType' => new EnumRequirement(CubeType::class)])]
     public function index(
         ChronoRepository $chronoRepository,
         CubeType $cubeType = CubeType::CUBE_3X3,

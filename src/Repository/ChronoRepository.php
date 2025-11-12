@@ -66,10 +66,10 @@ class ChronoRepository extends ServiceEntityRepository
         $yearlyData = [];
         foreach ($yearlyResults as $row) {
             $yearlyData[$row['year']] = [
-                'nbChronos' => $row['totalYearlyResolutions'],
-                'bestTime' => $row['bestTime'],
-                'worstTime' => $row['worstTime'],
-                'avgTime' => round($row['avgTime']),
+                'nbChronos' => (int) $row['totalYearlyResolutions'],
+                'bestTime' => $row['bestTime'] !== null ? (int) $row['bestTime'] : null,
+                'worstTime' => $row['worstTime'] !== null ? (int) $row['worstTime'] : null,
+                'avgTime' => round($row['avgTime']) !== null ? (int) round($row['avgTime']) : null,
             ];
         }
 
@@ -102,11 +102,11 @@ class ChronoRepository extends ServiceEntityRepository
             }
             // Only pick up wanted data, no need to repeat years
             $return[$year]['months'][] = [
-                'month' => $row['month'],
-                'nbChronos' => $row['nbChronos'],
-                'bestTime' => $row['bestTime'],
-                'worstTime' => $row['worstTime'],
-                'avgTime' => round($row['avgTime']),
+                'month' => (int) $row['month'],
+                'nbChronos' => (int) $row['nbChronos'],
+                'bestTime' => $row['bestTime'] !== null ? (int) $row['bestTime'] : null,
+                'worstTime' => $row['worstTime'] !== null ? (int) $row['worstTime'] : null,
+                'avgTime' => round($row['avgTime']) !== null ? (int) $row['avgTime'] : null,
             ];
         }   
 

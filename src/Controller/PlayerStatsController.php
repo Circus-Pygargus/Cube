@@ -19,10 +19,10 @@ class PlayerStatsController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         
-        $bestsChronos = $chronoRepository->findPersonalBestTimesByYears($cubeType);
+        $chronoStats = $chronoRepository->findUserChronoStatsByCubeType($this->getUser(), $cubeType);
 
         return $this->render('player-stats/index.html.twig', [
-            'chronos' => $bestsChronos,
+            'chronoStats' => $chronoStats,
         ]);
     }
 

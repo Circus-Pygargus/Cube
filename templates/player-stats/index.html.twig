@@ -17,6 +17,6 @@
 
 {% block javascripts %}
 	{{ parent() }}
-    <script>const chartData = {{ chronoStats | json_encode(constant('JSON_PRESERVE_ZERO_FRACTION') | constant('JSON_THROW_ON_ERROR')) | raw }};</script>
+    <script>const chartData = {{ chronoStatsJson | raw }};</script>
     {{ encore_entry_script_tags('userMainStats') }}
 {% endblock %}

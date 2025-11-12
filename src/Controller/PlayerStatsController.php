@@ -23,6 +23,7 @@ class PlayerStatsController extends AbstractController
 
         return $this->render('player-stats/index.html.twig', [
             'chronoStats' => $chronoStats,
+            'chronoStatsJson' => json_encode($chronoStats, JSON_THROW_ON_ERROR | JSON_PRESERVE_ZERO_FRACTION),
         ]);
     }
 

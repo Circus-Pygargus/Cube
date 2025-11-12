@@ -4,17 +4,19 @@
 
 {% block body %}
     <div>
-    {% for year, months in chronos %}
-        <div>{{ year }}</div>
-        {% for month in months %}
-            <div>{{ month_name(month.month) }}</div>
-            <div>{{ month.nbChronos }}</div>
-            <div>{{ format_duration(month.bestTime) }}</div>
-        {% endfor %}
-    {% endfor %}
+        <div id="tabs">
+            {% for year in chronoStats|keys|sort %}
+                <button class="tab-button{{ loop.last ? ' active' }}" data-year="{{ year }}">
+                    {{ year }}
+                </button>
+            {% endfor %}
+        </div>
+        <canvas id="main-stats"></canvas>
     </div>
 {% endblock %}
 
 {% block javascripts %}
 	{{ parent() }}
+    <script>const chartData = {{ chronoStats | json_encode | raw }};</script>
+    {{ encore_entry_script_tags('userMainStats') }}
 {% endblock %}
